@@ -1,0 +1,25 @@
+﻿<Properties StartupConfiguration="{B1E8B5F2-193A-488F-A823-E8C85027FEB3}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Eventour/Eventour.Android/Properties/AssemblyInfo.cs">
+    <Files>
+      <File FileName="Eventour/MainPage.xaml.cs" Line="20" Column="10" />
+      <File FileName="Eventour/MainPage.xaml" Line="54" Column="1" />
+      <File FileName="Eventour/App.xaml" Line="5" Column="15" />
+      <File FileName="Eventour/App.xaml.cs" Line="14" Column="55" />
+      <File FileName="Eventour.iOS/Main.cs" Line="21" Column="1" />
+      <File FileName="Eventour/SearchPage.xaml" Line="17" Column="41" />
+      <File FileName="Eventour/SearchPage.xaml.cs" Line="18" Column="10" />
+      <File FileName="Eventour/SearchResults.xaml" Line="5" Column="36" />
+      <File FileName="Eventour/SearchResults.xaml.cs" Line="18" Column="6" />
+      <File FileName="Eventour/obj/Debug/netstandard2.0/MainPage.xaml.g.cs" Line="1" Column="1" />
+      <File FileName="Eventour/Eventour.Android/Properties/AssemblyInfo.cs" Line="33" Column="12" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.Eventour.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.77CEC401-0CDF-483C-8E77-FF0E18FB0EA9" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Eventour.Android AndroidDesignerPreferredTheme="Theme.DeviceDefault.NoActionBar.Fullscreen" PreferredExecutionTarget="Android.Android_Accelerated_Nougat" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
