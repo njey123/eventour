@@ -15,39 +15,39 @@
         <ColumnDefinition Width="5*" />
       </Grid.ColumnDefinitions>
       <Label Text="Destination: " TextColor="#3ECCE5"/>
-      <Label TextColor="Red" x:Name="destinationResult" Grid.Column="1"/>
+      <Label x:Name="destinationResult" Text="" TextColor="Red" Grid.Column="1"/>
       </Grid>
       <Grid>
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="5*" />
         <ColumnDefinition Width="5*" />
       </Grid.ColumnDefinitions>
-      <Label Text="Start Date" TextColor="#3ECCE5" /> 
-      <Label x:Name="startDateResult" TextColor="Red" Grid.Column="1"/>
+      <Label Text="Start Date:" TextColor="#3ECCE5" /> 
+      <Label x:Name="startDateResult" Text="" TextColor="Red" Grid.Column="1"/>
       </Grid>
       <Grid>
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="5*" />
         <ColumnDefinition Width="5*" />
       </Grid.ColumnDefinitions>
-      <Label Text="End Date" TextColor="#3ECCE5" /> 
-      <Label x:Name="endDateResult" TextColor="Red" Grid.Column="1"/>
+      <Label Text="End Date:" TextColor="#3ECCE5" /> 
+      <Label x:Name="endDateResult" Text="" TextColor="Red" Grid.Column="1"/>
       </Grid>
       <Grid>
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="5*" />
         <ColumnDefinition Width="5*" />
       </Grid.ColumnDefinitions>
-      <Label Text="Attraction" TextColor="#3ECCE5" /> 
-      <Label x:Name="attractionResult" TextColor="Red" Grid.Column="1"/>
+      <Label Text="Attraction:" TextColor="#3ECCE5" /> 
+      <Label x:Name="attractionResult" Text="" TextColor="Red" Grid.Column="1"/>
       </Grid>
       <Grid>
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="5*" />
         <ColumnDefinition Width="5*" />
       </Grid.ColumnDefinitions>
-      <Label Text="Rating" TextColor="#3ECCE5" /> 
-      <Label x:Name="ratingResult" TextColor="Red" Grid.Column="1"/>
+      <Label Text="Rating:" TextColor="#3ECCE5" /> 
+      <Label x:Name="ratingResult" Text="" TextColor="Red" Grid.Column="1"/>
       </Grid>
     </StackLayout>
     </ScrollView>
