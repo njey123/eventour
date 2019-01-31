@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   x:Class="Eventour.MainPage">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="iOS" Value="20, 40, 20, 20" />
+            <On Platform="Android, UWP" Value="20" />
+        </OnPlatform>
+    </ContentPage.Padding>
+    <ScrollView>
+    <StackLayout>
+      <Image Source="LogoWords.png" />
+      <Label Text="Destination" TextColor="#3ECCE5"/>
+      <Entry x:Name="destination" Text="Paris, France" />
+      <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="5*" />
+        <ColumnDefinition Width="5*" />
+      </Grid.ColumnDefinitions>
+      <Label Text="Start Date" TextColor="#3ECCE5" /> 
+      <Label Text="End Date" TextColor="#3ECCE5" Grid.Column="1"/>
+      </Grid>
+        
+      <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="5*" />
+        <ColumnDefinition Width="5*" />
+      </Grid.ColumnDefinitions>
+      <Entry x:Name="startDate" Text="01/02/2019"/>
+      <Entry x:Name="endDate" Text="08/02/2019" Grid.Column="1"/>
+      </Grid>
+      
+      <Button 
+        x:Name="suggestTripButton" 
+        Text="Suggest A Trip"
+        TextColor="White"
+        BackgroundColor="Red"
+        BorderRadius="10"
+        Clicked="OnSuggestButtonClicked"
+        Margin="20,10,20,0"
+        />
+      <Button 
+        x:Name="callButton"
+        Text="Build My Trip"
+        TextColor="White"
+        BackgroundColor="Red"
+        BorderRadius="10"
+        Margin="20,10,20,0"
+        /><ScrollView></ScrollView><ScrollView></ScrollView><ScrollView></ScrollView>
+    </StackLayout>
+    </ScrollView>
+</ContentPage>

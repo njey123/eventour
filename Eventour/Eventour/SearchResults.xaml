@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Eventour.SearchResults">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="iOS" Value="20, 40, 20, 20" />
+            <On Platform="Android, UWP" Value="20" />
+        </OnPlatform>
+    </ContentPage.Padding>
+    <ScrollView>
+    <StackLayout>
+      <Image Source="Logo.png" />
+      <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="5*" />
+        <ColumnDefinition Width="5*" />
+      </Grid.ColumnDefinitions>
+      <Label Text="Destination: " TextColor="#3ECCE5"/>
+      <Label TextColor="Red" x:Name="destinationResult" Grid.Column="1"/>
+      </Grid>
+      <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="5*" />
+        <ColumnDefinition Width="5*" />
+      </Grid.ColumnDefinitions>
+      <Label Text="Start Date" TextColor="#3ECCE5" /> 
+      <Label x:Name="startDateResult" TextColor="Red" Grid.Column="1"/>
+      </Grid>
+      <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="5*" />
+        <ColumnDefinition Width="5*" />
+      </Grid.ColumnDefinitions>
+      <Label Text="End Date" TextColor="#3ECCE5" /> 
+      <Label x:Name="endDateResult" TextColor="Red" Grid.Column="1"/>
+      </Grid>
+      <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="5*" />
+        <ColumnDefinition Width="5*" />
+      </Grid.ColumnDefinitions>
+      <Label Text="Attraction" TextColor="#3ECCE5" /> 
+      <Label x:Name="attractionResult" TextColor="Red" Grid.Column="1"/>
+      </Grid>
+      <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="5*" />
+        <ColumnDefinition Width="5*" />
+      </Grid.ColumnDefinitions>
+      <Label Text="Rating" TextColor="#3ECCE5" /> 
+      <Label x:Name="ratingResult" TextColor="Red" Grid.Column="1"/>
+      </Grid>
+    </StackLayout>
+    </ScrollView>
+</ContentPage>

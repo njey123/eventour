@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Eventour.SearchPage">
+    <ContentPage.Content>
+      <StackLayout>
+      <Label Text="Destination" TextColor="#3ECCE5"/>
+      <Entry x:Name="destination" Text="Paris, France" />
+      <Label Text="Start Date" TextColor="#3ECCE5" />
+      <Entry x:Name="startDate" Text="01/02/2019"/>
+      <Label Text="End Date" TextColor="#3ECCE5"/>
+      <Entry x:Name="endDate" Text="08/02/2019"/>
+      <Button 
+        x:Name="suggestTripButton" 
+        Text="Suggest A Trip"
+        TextColor="White"
+        BackgroundColor="Red"
+        BorderRadius="10"
+        Clicked="OnSuggestButtonClicked"
+        />
+      <Button 
+        x:Name="callButton"
+        Text="Build My Trip"
+        TextColor="White"
+        BackgroundColor="Red"
+        BorderRadius="10"
+        />
+    </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

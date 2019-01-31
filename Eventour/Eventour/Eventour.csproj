@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="3.3.0.967583" />
+    <PackageReference Include="RestSharp" Version="106.6.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Images\eventour.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Models\SearchResult.xaml" />
+    <EmbeddedResource Remove="SearchPage.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Models\SearchResult.xaml.cs" />
+    <Compile Remove="SearchPage.xaml.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="SearchResults.xaml.cs">
+      <DependentUpon>SearchResults.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+</Project>
