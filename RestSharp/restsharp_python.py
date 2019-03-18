@@ -41,11 +41,11 @@ def test_route():
 
     # Send response from server to client
     response_json = {
-        'dest': dest,
-        'start_date': start_date,
-        'end_date': end_date,
-        'attractions': "Eiffel Tower",
-        'ratings': "4.6"   
+        'Dest': dest,
+        'StartDate': start_date,
+        'EndDate': end_date,
+        'Attractions': ["Eiffel Tower"],
+        'Ratings': ["4.2"] 
     }
     return json.dumps(response_json)
 
