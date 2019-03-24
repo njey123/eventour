@@ -1,7 +1,18 @@
 # Import flask microframework library
 from flask import Flask, request
+
+from datetime import date
 import json
- 
+import sys
+import os
+
+# Custom packages
+sys.path.insert(0, os.getcwd() + '/SQLServer')
+import query_db
+sys.path.insert(0, os.getcwd() + '/utilities')
+import trip_builder
+
+
 # Initialize the flask application
 app = Flask(__name__)
 
@@ -35,17 +46,31 @@ def test_route():
     # Print to console what Xamarin client sent
     print("XAMARIN SENT US TO {}, FROM {} TO {}".format(dest, start_date, end_date))
 
-    # Crawl every 2 to 4 weeks
-    # Store data in database
-    # Retrieve data in database and form response
+    # Calulate length of trip in days
+    # Date format is dd/mm/yyyy
+    first_date = start_date.split('/')
+    last_date = end_date.split('/')
+    d0 = date(int(first_date[2]), int(first_date[1]), int(first_date[0]))
+    d1 = date(int(last_date[2]), int(last_date[1]), int(last_date[0]))
+    delta = d1 - d0
+    num_days = delta.days 
+
+    # Retrieve data from database
+    attraction_db_results, rating_db_results, review_count_db_results, image_url_db_results, duration_db_results = query_db.main(dest)
+
+    # Create a trip with the highest review count and ratings
+    attractions, ratings, review_counts, image_urls, durations = trip_builder.suggest_trip(num_days, attraction_db_results, rating_db_results, review_count_db_results, image_url_db_results, duration_db_results)
 
     # Send response from server to client
     response_json = {
         'Dest': dest,
         'StartDate': start_date,
         'EndDate': end_date,
-        'Attractions': ["Eiffel Tower"],
-        'Ratings': ["4.2"] 
+        'Attractions': attractions,
+        'Ratings': ratings,
+        'ReviewCounts': review_counts,
+        'ImageURLs': image_urls,
+        'Durations': durations
     }
     return json.dumps(response_json)
 
