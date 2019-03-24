@@ -46,7 +46,7 @@ namespace Eventour
             // Deserialize JSON response from server
             DataDisplay data = Newtonsoft.Json.JsonConvert.DeserializeObject<DataDisplay>(response.Content);
 
-            await Navigation.PushAsync(new SearchResults(data.Dest, data.StartDate, data.EndDate, data.Attractions[0][0], data.Ratings[0][0]));
+            await Navigation.PushAsync(new SearchResults(data.Dest, data.StartDate, data.EndDate, data.Attractions, data.Ratings, data.ReviewCounts, data.ImageURLs, data.Durations));
         }
     }
 }

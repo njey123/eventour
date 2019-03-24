@@ -12,7 +12,7 @@
     <StackLayout>
       <Image Source="LogoWords.png" />
       <Label Text="Destination" TextColor="#3ECCE5"/>
-      <Entry x:Name="destination" Text="Paris, France" />
+      <Entry x:Name="destination" Text="New York City, New York" />
       <Grid>
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="5*" />
@@ -28,7 +28,7 @@
         <ColumnDefinition Width="5*" />
       </Grid.ColumnDefinitions>
       <Entry x:Name="startDate" Text="01/02/2019"/>
-      <Entry x:Name="endDate" Text="08/02/2019" Grid.Column="1"/>
+      <Entry x:Name="endDate" Text="03/02/2019" Grid.Column="1"/>
       </Grid>
       
       <Button 

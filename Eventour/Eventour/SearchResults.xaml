@@ -2,14 +2,25 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Eventour.SearchResults">
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
-            <On Platform="iOS" Value="20, 40, 20, 20" />
+            <!-- <On Platform="iOS" Value="20, 40, 20, 20" /> -->
+            <On Platform="iOS" Value="0" />
             <On Platform="Android, UWP" Value="20" />
         </OnPlatform>
     </ContentPage.Padding>
     <ScrollView>
-    <StackLayout>
-      <Image Source="Logo.png" />
-      <Grid>
+    <StackLayout x:Name="SearchResultsStack">
+      <!-- <Image Source="Logo.png" /> -->
+      <Grid Padding="0, 0, 0, 50" HorizontalOptions="Fill" VerticalOptions="Fill">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Image Aspect="AspectFill" Source="LogoWords.png" HorizontalOptions="Start"/>
+        <BoxView HeightRequest="50" HorizontalOptions="Fill" BackgroundColor="#72D5E6" Opacity="0.4"/>
+      </Grid>
+      <Grid Padding="30, 0, 20, 0">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="5*" />
         <ColumnDefinition Width="5*" />
@@ -17,15 +28,15 @@
       <Label Text="Destination: " TextColor="#3ECCE5"/>
       <Label x:Name="destinationResult" Text="" TextColor="Red" Grid.Column="1"/>
       </Grid>
-      <Grid>
+      <Grid Padding="30, 0, 20, 0">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="5*" />
         <ColumnDefinition Width="5*" />
       </Grid.ColumnDefinitions>
-      <Label Text="Start Date:" TextColor="#3ECCE5" /> 
+      <Label Text="Start Date:" TextColor="#3ECCE5" Grid.Column="0"/> 
       <Label x:Name="startDateResult" Text="" TextColor="Red" Grid.Column="1"/>
       </Grid>
-      <Grid>
+      <Grid Padding="30, 0, 20, 0">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="5*" />
         <ColumnDefinition Width="5*" />
@@ -33,6 +44,7 @@
       <Label Text="End Date:" TextColor="#3ECCE5" /> 
       <Label x:Name="endDateResult" Text="" TextColor="Red" Grid.Column="1"/>
       </Grid>
+      <!-- 
       <Grid>
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="5*" />
@@ -48,7 +60,8 @@
       </Grid.ColumnDefinitions>
       <Label Text="Rating:" TextColor="#3ECCE5" /> 
       <Label x:Name="ratingResult" Text="" TextColor="Red" Grid.Column="1"/>
-      </Grid>
+      </Grid> 
+      -->
     </StackLayout>
     </ScrollView>
 </ContentPage>
