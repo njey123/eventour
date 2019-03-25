@@ -43,7 +43,7 @@ def suggest_trip(num_days, attraction_db_results, rating_db_results, review_coun
 
         # If not an empty string
         if duration_db_results[i]:
-            curr_hours = curr_hours + int(duration_db_results[i])
+            curr_hours = curr_hours + int(duration_db_results[i]) + 1  # Add 1 because of the way duration is stored as an integer state
             durations[day].append(duration_db_results[i])
         else:
             curr_hours = curr_hours + default_hours
@@ -68,7 +68,7 @@ def suggest_trip(num_days, attraction_db_results, rating_db_results, review_coun
                 break
 
             if duration_db_results[i]:
-                curr_hours = curr_hours + int(duration_db_results[i])
+                curr_hours = curr_hours + int(duration_db_results[i]) + 1
             else:
                 curr_hours = curr_hours + default_hours
 
