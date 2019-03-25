@@ -53,7 +53,7 @@ def test_route():
     d0 = date(int(first_date[2]), int(first_date[1]), int(first_date[0]))
     d1 = date(int(last_date[2]), int(last_date[1]), int(last_date[0]))
     delta = d1 - d0
-    num_days = delta.days 
+    num_days = delta.days + 1
 
     # Retrieve data from database
     attraction_db_results, rating_db_results, review_count_db_results, image_url_db_results, duration_db_results = query_db.main(dest)
