@@ -10,38 +10,38 @@
     <ScrollView>
     <StackLayout x:Name="SearchResultsStack">
       <!-- <Image Source="Logo.png" /> -->
-      <Grid Padding="0, 0, 0, 50" HorizontalOptions="Fill" VerticalOptions="Fill">
+      <Grid Padding="0, 0, 0, 40" HorizontalOptions="Fill" VerticalOptions="Fill">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        <BoxView HeightRequest="50" HorizontalOptions="Fill" BackgroundColor="#72D5E6" Opacity="0.8"/>
         <Image Aspect="AspectFill" Source="LogoWords.png" HorizontalOptions="Start"/>
-        <BoxView HeightRequest="50" HorizontalOptions="Fill" BackgroundColor="#72D5E6" Opacity="0.4"/>
       </Grid>
-      <Grid Padding="30, 0, 20, 0">
+      <Grid Padding="30, 0, 30, 0">
       <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="5*" />
+        <ColumnDefinition Width="7*" />
         <ColumnDefinition Width="5*" />
       </Grid.ColumnDefinitions>
-      <Label Text="Destination: " TextColor="#3ECCE5"/>
+      <Label Text="Destination: " TextColor="#3ECCE5" FontAttributes="Bold"/>
       <Label x:Name="destinationResult" Text="" TextColor="Red" Grid.Column="1"/>
       </Grid>
-      <Grid Padding="30, 0, 20, 0">
+      <Grid Padding="30, 0, 30, 0">
       <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="5*" />
+        <ColumnDefinition Width="7*" />
         <ColumnDefinition Width="5*" />
       </Grid.ColumnDefinitions>
-      <Label Text="Start Date:" TextColor="#3ECCE5" Grid.Column="0"/> 
+      <Label Text="Start Date:" TextColor="#3ECCE5" FontAttributes="Bold" Grid.Column="0"/> 
       <Label x:Name="startDateResult" Text="" TextColor="Red" Grid.Column="1"/>
       </Grid>
-      <Grid Padding="30, 0, 20, 0">
+      <Grid Padding="30, 0, 30, 40">
       <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="5*" />
+        <ColumnDefinition Width="7*" />
         <ColumnDefinition Width="5*" />
       </Grid.ColumnDefinitions>
-      <Label Text="End Date:" TextColor="#3ECCE5" /> 
+      <Label Text="End Date:" TextColor="#3ECCE5" FontAttributes="Bold"/> 
       <Label x:Name="endDateResult" Text="" TextColor="Red" Grid.Column="1"/>
       </Grid>
       <!-- 
