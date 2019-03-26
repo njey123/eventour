@@ -56,10 +56,10 @@ def test_route():
     num_days = delta.days + 1
 
     # Retrieve data from database
-    attraction_db_results, rating_db_results, review_count_db_results, image_url_db_results, duration_db_results = query_db.main(dest)
+    attraction_db_results, rating_db_results, review_count_db_results, image_url_db_results, duration_db_results, description_db_results, address_db_results = query_db.main(dest)
 
     # Create a trip with the highest review count and ratings
-    attractions, ratings, review_counts, image_urls, durations = trip_builder.suggest_trip(num_days, attraction_db_results, rating_db_results, review_count_db_results, image_url_db_results, duration_db_results)
+    attractions, ratings, review_counts, image_urls, durations, descriptions, addresses = trip_builder.suggest_trip(num_days, attraction_db_results, rating_db_results, review_count_db_results, image_url_db_results, duration_db_results, description_db_results, address_db_results)
 
     # Send response from server to client
     response_json = {
@@ -70,7 +70,9 @@ def test_route():
         'Ratings': ratings,
         'ReviewCounts': review_counts,
         'ImageURLs': image_urls,
-        'Durations': durations
+        'Durations': durations,
+        'Descriptions': descriptions,
+        'Addresses': addresses
     }
     return json.dumps(response_json)
 

@@ -21,6 +21,8 @@ namespace Eventour
             public List<List<string>> ReviewCounts { get; set; }
             public List<List<string>> ImageURLs { get; set; }
             public List<List<string>> Durations { get; set; }
+            public List<List<string>> Descriptions { get; set; }
+            public List<List<string>> Addresses { get; set; }
         }
 
         public MainPage()
@@ -46,7 +48,7 @@ namespace Eventour
             // Deserialize JSON response from server
             DataDisplay data = Newtonsoft.Json.JsonConvert.DeserializeObject<DataDisplay>(response.Content);
 
-            await Navigation.PushAsync(new SearchResults(data.Dest, data.StartDate, data.EndDate, data.Attractions, data.Ratings, data.ReviewCounts, data.ImageURLs, data.Durations));
+            await Navigation.PushAsync(new SearchResults(data.Dest, data.StartDate, data.EndDate, data.Attractions, data.Ratings, data.ReviewCounts, data.ImageURLs, data.Durations, data.Descriptions, data.Addresses));
         }
     }
 }

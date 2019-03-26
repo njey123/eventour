@@ -7,7 +7,7 @@ namespace Eventour
 {
     public partial class SearchResults : ContentPage
     {
-        public SearchResults(string dest, string startDate, string endDate, List<List<string>> attractions, List<List<string>> ratings, List<List<string>> reviewCounts, List<List<string>> imageURLs, List<List<string>> durations)
+        public SearchResults(string dest, string startDate, string endDate, List<List<string>> attractions, List<List<string>> ratings, List<List<string>> reviewCounts, List<List<string>> imageURLs, List<List<string>> durations, List<List<string>> descriptions, List<List<string>> addresses)
         {
             InitializeComponent();
 
@@ -33,7 +33,7 @@ namespace Eventour
                 var dayHeading = new Label { Text = "Activities for: ", TextColor = Color.FromHex("#3ECCE5"), FontAttributes = FontAttributes.Bold };
                 // Get current day
                 DateTime currDateObj = startDateObj.AddDays(i);
-                var currDay = new Label { Text = (currDateObj).ToString("MMM. dd, yyyy"), TextColor = Color.Red };
+                var currDay = new Label { Text = (currDateObj).ToString("MMM. dd, yyyy"), TextColor = Color.Red, FontAttributes = FontAttributes.Bold };
 
                 // Add to grid
                 dayGrid.Children.Add(dayHeading, 0, 0);
@@ -52,12 +52,13 @@ namespace Eventour
                     imgGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
 
                     // Boxview
-                    var currBoxview = new BoxView { CornerRadius = 10, HorizontalOptions = LayoutOptions.Fill, BackgroundColor = Color.FromHex("#72D5E6"), Opacity = 0.8 };
+                    var currBoxview = new BoxView { CornerRadius = 10, HorizontalOptions = LayoutOptions.Fill, BackgroundColor = Color.FromHex("#72D5E6"), Opacity = 0.6 };
                     imgGrid.Children.Add(currBoxview, 0, 0);
 
                     // Create 3x2 grid
                     var grid = new Grid { Padding = new Thickness(30, 0, 30, 30) };
                     grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star)});
+                    grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
                     grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
                     grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
                     grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(7, GridUnitType.Star) });
@@ -75,8 +76,30 @@ namespace Eventour
 
                     // Heading
                     var reviewCountHeading = new Label { Text = "Number of Reviews: ", TextColor = Color.Black };
-                    // Get rating for the current attraction
+                    // Get number of reviews for the current attraction
                     var currReviewCount = new Label { Text = reviewCounts[i][j], TextColor = Color.Red };
+
+                    // Heading
+                    var durationHeading = new Label { Text = "Estimated Duration: ", TextColor = Color.Black };
+                    // Get estimated duration for the current attraction
+                    string currDurationStr = "";
+                    if (Int32.Parse(durations[i][j]) == 0)
+                    {
+                        currDurationStr = "< 1 hour";
+                    }
+                    else if (Int32.Parse(durations[i][j]) == 1)
+                    {
+                        currDurationStr = "1-2 hours";
+                    }
+                    else if (Int32.Parse(durations[i][j]) == 2)
+                    {
+                        currDurationStr = "2-3 hours";
+                    }
+                    else
+                    {
+                        currDurationStr = "> 3 hours";
+                    }
+                    var currDuration = new Label { Text = currDurationStr, TextColor = Color.Red };
 
                     // Add to grid
                     grid.Children.Add(attractionHeading, 0, 0);
@@ -85,6 +108,8 @@ namespace Eventour
                     grid.Children.Add(currRating, 1, 1);
                     grid.Children.Add(reviewCountHeading, 0, 2);
                     grid.Children.Add(currReviewCount, 1, 2);
+                    grid.Children.Add(durationHeading, 0, 3);
+                    grid.Children.Add(currDuration, 1, 3);
 
                     // Add to stack layout
                     SearchResultsStack.Children.Add(imgGrid);

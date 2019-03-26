@@ -24,10 +24,10 @@ class EventourDB():
         self.cursor = cursor
 
     # Insert row in table
-    def insert_row(self, attraction_name, rating, review_count, image_url, duration):
+    def insert_row(self, attraction_name, rating, review_count, image_url, duration, description, address):
         print('\nInserting a new row into table...')
-        tsql = "INSERT INTO " + self.table_name + " (dest, name, rating, review_count, image_url, duration) VALUES (?,?,?,?,?,?);"
-        with self.cursor.execute(tsql, self.dest, attraction_name, rating, review_count, image_url, duration):
+        tsql = "INSERT INTO " + self.table_name + " (dest, name, rating, review_count, image_url, duration, description, address) VALUES (?,?,?,?,?,?,?,?);"
+        with self.cursor.execute(tsql, self.dest, attraction_name, rating, review_count, image_url, duration, description, address):
             print ('Successfully inserted!')
 
     # Delete row(s) from table
@@ -45,8 +45,10 @@ class EventourDB():
         review_count_db_results = []
         image_url_db_results = []
         duration_db_results = []
+        description_db_results = []
+        address_db_results = []
 
-        tsql = "SELECT dest, name, rating, review_count, image_url, duration FROM " + self.table_name + " WHERE dest LIKE '" + self.dest + "' ORDER BY " + cols_to_order + ";"
+        tsql = "SELECT dest, name, rating, review_count, image_url, duration, description, address FROM " + self.table_name + " WHERE dest LIKE '" + self.dest + "' ORDER BY " + cols_to_order + ";"
         with self.cursor.execute(tsql):
             row = self.cursor.fetchone()
             while row:
@@ -55,11 +57,13 @@ class EventourDB():
                 review_count_db_results.append(row[3])
                 image_url_db_results.append(row[4])
                 duration_db_results.append(row[5])
+                description_db_results.append(row[6])
+                address_db_results.append(row[7])
 
-                print (str(row[0]) + "\t\t" + str(row[1]) + "\t\t" + str(row[2]) + "\t\t" + str(row[3]) + "\t\t" + str(row[4]) + "\t\t" + str(row[5]))
+                print (str(row[0]) + "\t\t" + str(row[1]) + "\t\t" + str(row[2]) + "\t\t" + str(row[3]) + "\t\t" + str(row[4]) + "\t\t" + str(row[5]) + "\t\t" + str(row[6]) + "\t\t" + str(row[7]))
                 row = self.cursor.fetchone()
         
-        return attraction_db_results, rating_db_results, review_count_db_results, image_url_db_results, duration_db_results 
+        return attraction_db_results, rating_db_results, review_count_db_results, image_url_db_results, duration_db_results, description_db_results, address_db_results
 
 
 # =====================================
@@ -92,9 +96,9 @@ def main(dest):
      # -------------- FOR TESTING --------------
 
     # Query database
-    cols_to_order = 'cast(review_count as int) DESC, rating DESC'
-    attraction_db_results, rating_db_results, review_count_db_results, image_url_db_results, duration_db_results = eventourDB.query_table(cols_to_order)
+    cols_to_order = 'cast(review_count as int) DESC, cast(rating as float) DESC'
+    attraction_db_results, rating_db_results, review_count_db_results, image_url_db_results, duration_db_results, description_db_results, address_db_results = eventourDB.query_table(cols_to_order)
 
-    return attraction_db_results, rating_db_results, review_count_db_results, image_url_db_results, duration_db_results
+    return attraction_db_results, rating_db_results, review_count_db_results, image_url_db_results, duration_db_results, description_db_results, address_db_results
 
 

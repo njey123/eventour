@@ -8,7 +8,7 @@ Suggested duration - integer state:
 
 # Build a trip from scratch ("Suggest A Trip")
 # Assumes no attractions in database are repeated and duration is stored as a string in the database
-def suggest_trip(num_days, attraction_db_results, rating_db_results, review_count_db_results, image_url_db_results, duration_db_results):
+def suggest_trip(num_days, attraction_db_results, rating_db_results, review_count_db_results, image_url_db_results, duration_db_results, description_db_results, address_db_results):
     
     max_hours = 6  # Max number of hours dedicated for attractions per day
     default_hours = 2  # Use if suggested duration is not available for an attraction
@@ -18,6 +18,8 @@ def suggest_trip(num_days, attraction_db_results, rating_db_results, review_coun
     review_counts = []
     image_urls = []
     durations = []
+    descriptions = []
+    addresses = []
 
     # Create list of lists of length number of days in the trip
     for day in range(0, num_days):
@@ -26,6 +28,8 @@ def suggest_trip(num_days, attraction_db_results, rating_db_results, review_coun
         review_counts.append([])
         image_urls.append([])
         durations.append([])
+        descriptions.append([])
+        addresses.append([])
 
     i = 0
     areThereAttractionsLeft = True
@@ -39,6 +43,8 @@ def suggest_trip(num_days, attraction_db_results, rating_db_results, review_coun
             review_counts[day].append('')
             image_urls[day].append('')
             durations[day].append('')
+            descriptions[day].append('')
+            addresses[day].append('')
             continue
 
         # If not an empty string
@@ -58,6 +64,8 @@ def suggest_trip(num_days, attraction_db_results, rating_db_results, review_coun
             ratings[day].append(rating_db_results[i])
             review_counts[day].append(review_count_db_results[i])
             image_urls[day].append(image_url_db_results[i])
+            descriptions[day].append(description_db_results[i])
+            addresses[day].append(address_db_results[i])
 
             # Increment iterator
             i = i + 1
@@ -81,7 +89,7 @@ def suggest_trip(num_days, attraction_db_results, rating_db_results, review_coun
                 else:
                     durations[day].append(str(default_hours))
 
-    return attractions, ratings, review_counts, image_urls, durations
+    return attractions, ratings, review_counts, image_urls, durations, descriptions, addresses
 
 
 # if __name__ == "__main__" and __package__ is None:

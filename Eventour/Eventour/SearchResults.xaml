@@ -17,7 +17,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <BoxView HeightRequest="50" HorizontalOptions="Fill" BackgroundColor="#72D5E6" Opacity="0.8"/>
+        <BoxView HeightRequest="50" HorizontalOptions="Fill" BackgroundColor="#72D5E6" Opacity="0.6"/>
         <Image Aspect="AspectFill" Source="LogoWords.png" HorizontalOptions="Start"/>
       </Grid>
       <Grid Padding="30, 0, 30, 0">
