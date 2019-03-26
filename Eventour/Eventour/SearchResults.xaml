@@ -27,6 +27,7 @@
         <ColumnDefinition Width="5*" />
       </Grid.ColumnDefinitions>
       <Label Text="Destination: " TextColor="#3ECCE5" FontAttributes="Bold"/>
+      <!-- For Testing: <Label x:Name="test" Text="" TextColor="#3ECCE5" FontAttributes="Bold"/> -->
       <Label x:Name="destinationResult" Text="" TextColor="Red" Grid.Column="1"/>
       </Grid>
       <Grid Padding="30, 0, 30, 0">
