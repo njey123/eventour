@@ -1,0 +1,30 @@
+[
+  {
+    "city": "Toronto",
+    "country": "Canada"
+  },
+  {
+    "city": "Paris",
+    "country": "France"
+  },
+  {
+    "city": "New York City",
+    "country": "United States"
+  },
+  {
+    "city": "Beijing",
+    "country": "China"
+  },
+  {
+    "city": "London",
+    "country": "United Kingdom"
+  },
+  {
+    "city": "Berlin",
+    "country": "Germany"
+  },
+  {
+    "city": "Tokyo",
+    "country": "Japan"
+	}
+]
