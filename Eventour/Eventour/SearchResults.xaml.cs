@@ -45,17 +45,34 @@ namespace Eventour
                 // For each attraction planned on current day in trip
                 for (var j = 0; j < attractions[i].Count; j++)
                 {
-
                     // Create 4x5 grid for image
-                    var imgGrid = new Grid { Padding = new Thickness(30, 20, 30, 20) };
-                    imgGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(200) });
+                    var imgGrid = new Grid { Padding = new Thickness(30, 20, 30, 20), HorizontalOptions = LayoutOptions.Fill, VerticalOptions = LayoutOptions.Fill };
+                    imgGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(135) });
+                    imgGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(65) });
                     imgGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
 
-                    // Boxview
-                    var currBoxview = new BoxView { CornerRadius = 10, HorizontalOptions = LayoutOptions.Fill, BackgroundColor = Color.FromHex("#72D5E6"), Opacity = 0.6 };
-                    imgGrid.Children.Add(currBoxview, 0, 0);
+                    // Boxviews
+                    var currBoxview = new BoxView { CornerRadius = 10, HorizontalOptions = LayoutOptions.Fill, BackgroundColor = Color.FromHex("#72D5E6"), Opacity = 0.8 };
+                    // Image
+                    var attractionImg = new Image { Source = "https://media-cdn.tripadvisor.com/media/photo-w/0f/38/33/f6/beautiful-day-to-see.jpg", Aspect = Aspect.Fill, HorizontalOptions = LayoutOptions.Fill, VerticalOptions = LayoutOptions.Fill };
+                    // Minus icon
+                    var minusImg = new Image { Source = "Minus.png", Aspect = Aspect.Fill, HorizontalOptions = LayoutOptions.End };
 
-                    // Create 3x2 grid
+                    // Frame with rounded corners for image
+                    var imgFrame = new Frame { 
+                        Content = attractionImg,
+                        CornerRadius = 10, 
+                        Margin = new Thickness(0), 
+                        Padding = new Thickness(0), 
+                        IsClippedToBounds = true 
+                    };
+
+                    // Add to image grid
+                    imgGrid.Children.Add(currBoxview, 0, 1, 0, 2);
+                    imgGrid.Children.Add(imgFrame, 0, 1, 0, 2);
+                    imgGrid.Children.Add(minusImg, 0, 1);
+
+                    // Create 3x2 grid for text
                     var grid = new Grid { Padding = new Thickness(30, 0, 30, 30) };
                     grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star)});
                     grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
@@ -81,23 +98,29 @@ namespace Eventour
 
                     // Heading
                     var durationHeading = new Label { Text = "Estimated Duration: ", TextColor = Color.Black };
+
                     // Get estimated duration for the current attraction
                     string currDurationStr = "";
-                    if (Int32.Parse(durations[i][j]) == 0)
+
+                    // If duration is not an empty string
+                    if (!String.IsNullOrEmpty(durations[i][j]))
                     {
-                        currDurationStr = "< 1 hour";
-                    }
-                    else if (Int32.Parse(durations[i][j]) == 1)
-                    {
-                        currDurationStr = "1-2 hours";
-                    }
-                    else if (Int32.Parse(durations[i][j]) == 2)
-                    {
-                        currDurationStr = "2-3 hours";
-                    }
-                    else
-                    {
-                        currDurationStr = "> 3 hours";
+                        if (Int32.Parse(durations[i][j]) == 0)
+                        {
+                            currDurationStr = "< 1 hour";
+                        }
+                        else if (Int32.Parse(durations[i][j]) == 1)
+                        {
+                            currDurationStr = "1-2 hours";
+                        }
+                        else if (Int32.Parse(durations[i][j]) == 2)
+                        {
+                            currDurationStr = "2-3 hours";
+                        }
+                        else
+                        {
+                            currDurationStr = "> 3 hours";
+                        }
                     }
                     var currDuration = new Label { Text = currDurationStr, TextColor = Color.Red };
 

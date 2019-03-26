@@ -10,7 +10,7 @@
     <ScrollView>
     <StackLayout x:Name="SearchResultsStack">
       <!-- <Image Source="Logo.png" /> -->
-      <Grid Padding="0, 0, 0, 40" HorizontalOptions="Fill" VerticalOptions="Fill">
+      <Grid Padding="0, 0, 0, 40" HorizontalOptions="Fill" VerticalOptions="Fill">  <!-- Start of Top Bar -->
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
@@ -19,7 +19,8 @@
         </Grid.ColumnDefinitions>
         <BoxView HeightRequest="50" HorizontalOptions="Fill" BackgroundColor="#72D5E6" Opacity="0.6"/>
         <Image Aspect="AspectFill" Source="LogoWords.png" HorizontalOptions="Start"/>
-      </Grid>
+        <Image Aspect="AspectFill" Source="Plus.png" HorizontalOptions="End"/> 
+      </Grid>  <!-- End of Top Bar -->
       <Grid Padding="30, 0, 30, 0">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="7*" />
