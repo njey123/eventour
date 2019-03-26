@@ -14,8 +14,15 @@ namespace Eventour
             public string Dest { get; set; }
             public string StartDate { get; set; }
             public string EndDate { get; set; }
-            public List<string> Attractions { get; set; }
-            public List<string> Ratings { get; set; }
+            // public List<string> Attractions { get; set; }
+            // public List<string> Ratings { get; set; }
+            public List<List<string>> Attractions { get; set; }
+            public List<List<string>> Ratings { get; set; }
+            public List<List<string>> ReviewCounts { get; set; }
+            public List<List<string>> ImageURLs { get; set; }
+            public List<List<string>> Durations { get; set; }
+            public List<List<string>> Descriptions { get; set; }
+            public List<List<string>> Addresses { get; set; }
         }
 
         public MainPage()
@@ -27,7 +34,8 @@ namespace Eventour
         async void OnSuggestButtonClicked(object sender, EventArgs e)
         {
             var client = new RestClient();
-            client.BaseUrl = new Uri("http://127.0.0.1:5000/");
+            // client.BaseUrl = new Uri("http://127.0.0.1:5000/");
+            client.BaseUrl = new Uri("http://eventour.fun:5000/");
 
             var request = new RestRequest("test", Method.POST);
             request.AddParameter("dest", destination.Text);
@@ -40,7 +48,7 @@ namespace Eventour
             // Deserialize JSON response from server
             DataDisplay data = Newtonsoft.Json.JsonConvert.DeserializeObject<DataDisplay>(response.Content);
 
-            await Navigation.PushAsync(new SearchResults(data.Dest, data.StartDate, data.EndDate, data.Attractions[0], data.Ratings[0]));
+            await Navigation.PushAsync(new SearchResults(data.Dest, data.StartDate, data.EndDate, data.Attractions, data.Ratings, data.ReviewCounts, data.ImageURLs, data.Durations, data.Descriptions, data.Addresses));
         }
     }
 }
