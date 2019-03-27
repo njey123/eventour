@@ -66,13 +66,13 @@ namespace Eventour
         }
 
         // When logo button on top menu bar is clicked
-        async void OnLogoBtnClicked(object sender, EventArgs e)
+        void OnLogoBtnClicked(object sender, EventArgs e)
         {
-            var mainPage = new MainPage();
+            /* var mainPage = new MainPage();
 
             // Disable back button on next page
             NavigationPage.SetHasBackButton(mainPage, false);
-            await Navigation.PushAsync(mainPage);
+            await Navigation.PushAsync(mainPage); */
         }
     }
 }

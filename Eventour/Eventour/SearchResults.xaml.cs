@@ -8,6 +8,7 @@ namespace Eventour
 {
     public partial class SearchResults : ContentPage
     {
+        // Object used to contain data for one trip
         public class DataDisplay
         {
             public string Dest { get; set; }
@@ -181,7 +182,7 @@ namespace Eventour
                     attractionImgBtns[i][j].Clicked += OnAttractionImgBtnClicked;
 
                     // Minus image button
-                    string bindingContextMinusImgBtn = String.Format("{0},{1},{2}", i, j, displayedData.Attractions[i][j]);
+                    string bindingContextMinusImgBtn = String.Format("{0},{1},"+ displayedData.Attractions[i][j], i, j);
                     // string bindingContextMinusImgBtn = String.Format("{0},{1}", i, displayedData.Attractions[i].FindIndex(displayedData.Attractions[i][j].Contains));
                     var minusImgBtn = new ImageButton
                     {
@@ -306,6 +307,52 @@ namespace Eventour
             public ImageButton MinusImgBtn { get; set; }
         }
 
+        // Helper function - use to remove attractions the user wants to remove before navigating to a new page
+        void RemoveAttractions()
+        {
+            for (int i = 0; i < attractionsToRemove.Count; i++)
+            {
+                int dayIdx = daysForAttractionsToRemove[i];
+                int index = displayedData.Attractions[dayIdx].FindIndex(attractionsToRemove[i].Contains);
+
+                if (index >= 0)
+                {
+                    // Remove attraction and associated information from global variable displayedData
+                    displayedData.Attractions[dayIdx].RemoveAt(index);
+                    displayedData.Ratings[dayIdx].RemoveAt(index);
+                    displayedData.ReviewCounts[dayIdx].RemoveAt(index);
+                    displayedData.ImageURLs[dayIdx].RemoveAt(index);
+                    displayedData.Durations[dayIdx].RemoveAt(index);
+                    displayedData.Descriptions[dayIdx].RemoveAt(index);
+                    displayedData.Addresses[dayIdx].RemoveAt(index);
+                }
+            }
+        }
+
+        // When logo button on top menu bar is clicked
+        async void OnLogoBtnClicked(object sender, EventArgs e)
+        {
+            var mainPage = new MainPage();
+
+            // Disable back button on next page
+            NavigationPage.SetHasBackButton(mainPage, false);
+            await Navigation.PushAsync(mainPage);
+        }
+
+        // When user wants to save a trip
+        async void OnSaveButtonClicked(object sender, EventArgs e)
+        {
+            // Remove any attractions user chose to remove before navigating to next page
+            RemoveAttractions();
+
+            DataDisplay data = displayedData;
+            var tripsPage = new TripsPage(data.Dest, data.StartDate, data.EndDate, data.Attractions, data.Ratings, data.ReviewCounts, data.ImageURLs, data.Durations, data.Descriptions, data.Addresses);
+
+            // Disable back button on next page
+            NavigationPage.SetHasBackButton(tripsPage, false);
+            await Navigation.PushAsync(tripsPage);
+        }
+
         // Show detailed information about attraction
         async void OnAttractionImgBtnClicked(object sender, EventArgs e)
         {
@@ -332,7 +379,7 @@ namespace Eventour
             string[] indicesStrArr = indicesStr.Split(',');
             int dayIdx = Int32.Parse(indicesStrArr[0]);
             int imgGridIdx = Int32.Parse(indicesStrArr[1]);
-            string attraction = indicesStr[2].ToString();
+            string attraction = indicesStrArr[2];
 
             /* var dayIdx = minusImgBtnDecorator.DayIndex;
             var imgGridIdx = minusImgBtnDecorator.ImgGridIndex;*/
@@ -358,37 +405,6 @@ namespace Eventour
             displayedData.Addresses[dayIdx].RemoveAt(imgGridIdx); */
         }
 
-        // When logo button on top menu bar is clicked
-        async void OnLogoBtnClicked(object sender, EventArgs e)
-        {
-            var mainPage = new MainPage();
-
-            // Disable back button on next page
-            NavigationPage.SetHasBackButton(mainPage, false);
-            await Navigation.PushAsync(mainPage);
-        }
-
-        void RemoveAttractions()
-        {
-            for (int i = 0; i < attractionsToRemove.Count; i++)
-            {
-                int dayIdx = daysForAttractionsToRemove[i];
-                int index = displayedData.Attractions[dayIdx].FindIndex(attractionsToRemove[i].Contains);
-
-                if (index >= 0)
-                {
-                    // Remove attraction and associated information from global variable ********* BUG HERE, things are not being deleted
-                    displayedData.Attractions[dayIdx].RemoveAt(index);
-                    displayedData.Ratings[dayIdx].RemoveAt(index);
-                    displayedData.ReviewCounts[dayIdx].RemoveAt(index);
-                    displayedData.ImageURLs[dayIdx].RemoveAt(index);
-                    displayedData.Durations[dayIdx].RemoveAt(index);
-                    displayedData.Descriptions[dayIdx].RemoveAt(index);
-                    displayedData.Addresses[dayIdx].RemoveAt(index);
-                }
-            }
-        }
-
         // Go to new page when user wants to add attractions
         async void OnPlusImgBtnClicked(object sender, EventArgs e)
         {
@@ -412,7 +428,7 @@ namespace Eventour
             // Deserialize JSON response from server
             DataDisplay data = Newtonsoft.Json.JsonConvert.DeserializeObject<DataDisplay>(response.Content);
 
-            // Remove attractions before navigating to next page
+            // Remove any attractions user chose to remove before navigating to next page
             RemoveAttractions();
 
             var addAttractionsPage = new AddAttractions(data.Dest, data.StartDate, (endDateObj).ToString("dd/MM/yyyy"), data.Attractions, data.Ratings, data.ReviewCounts, data.ImageURLs, data.Durations, data.Descriptions, data.Addresses);

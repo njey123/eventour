@@ -38,6 +38,7 @@
         x:Name="suggestTripButton" 
         Text="Suggest A Trip"
         TextColor="White"
+        FontSize="Medium"
         BackgroundColor="Red"
         BorderRadius="10"
         Clicked="OnSuggestButtonClicked"
