@@ -5,7 +5,6 @@ import pymssql
 
 class ItemPipeline(object):
 
-    #file = None
     # Constructor
     def __init__(self, dest):
         self.conn = pymssql.connect(host='0.0.0.0', user='sa', password='SeventyPies42', database='EventourDB')
@@ -13,7 +12,6 @@ class ItemPipeline(object):
         self.table_name = 'Attractions'
         self.dest = dest
     
-    file = None
     @classmethod
     def from_crawler(cls, crawler):
         return cls(dest = crawler.spider.dest)
@@ -37,15 +35,17 @@ class ItemPipeline(object):
         
         print('\nInserting a new row into database...')
         try:
-            tsql = "INSERT INTO " + self.table_name + "(dest, name, rating, review_count, image_url, duration) VALUES (%s, %s, %s, %s, %s, %s)" 
+            tsql = "REPLACE INTO" + self.table_name + "(dest, name, rating, review_count, image_url, duration, description, address) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)" 
             self.cursor.execute(tsql, (self.dest, item['name'], item['rating'], item['review_count'], item['image_url'], item['duration'], item['description'], item['address']))
             self.conn.commit()
         except pymssql.Error as e:
             print("Error inserting row in database")
-        
-        #self.exporter.export_item(item)
+
+
+
+
         return item
-    
+    '''
     # Display data in database for one destination (city)
     def display_data(self):
         print('\nReading data from database...')
@@ -55,3 +55,4 @@ class ItemPipeline(object):
         while row:  
             print (str(row[0]) + "\t\t" + str(row[1]) + "\t\t" + str(row[2]) + "\t\t" + str(row[3]) + "\t\t" + str(row[4]) + "\t\t" + str(row[5]))    
             row = self.cursor.fetchone()
+    '''

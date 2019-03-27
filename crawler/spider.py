@@ -3,27 +3,21 @@ from search import getCityUrl
 from description import getAttractionDescription
 from scrapy.crawler import CrawlerProcess
 from items import AttractionItem
-from scrapy.utils.project import get_project_settings
-from scrapy_splash import SplashRequest
 import json
+from termcolor import colored
 
 class TripAdvisorSpider(scrapy.Spider):
     name = 'trip_advisor_spider'
     
     #urls = getCityUrl('New York') #get url for the city attraction search result page and the next page
     #start_urls = [urls[0]] #use the first url as start url
-    '''
-    with open('urls.json') as f:
-        urls = json.load(f)
-    '''
-    urls=[]
-    start_urls = []
 
     def __init__(self, city = None, country = None, **kwargs):
+        print(colored('spider initialized', 'cyan'))
         self.dest = city + ' ' + country
         self.urls = getCityUrl(city, country)
-
-        self.start_urls.append(self.urls[0])
+        #self.urls = [url, url_next]
+        self.start_urls = [self.urls[0]]
         #self.start_urls.append('https://www.tripadvisor.ca/Attractions-g60763-Activities-New_York_City_New_York.html')
     
     def parse(self, response):
@@ -42,7 +36,6 @@ class TripAdvisorSpider(scrapy.Spider):
         yield scrapy.Request(
             next_url, self.parse_next_page
         )
-        
         
         
     def parse_next_page(self, response):
@@ -82,6 +75,7 @@ class TripAdvisorSpider(scrapy.Spider):
         item['review_count'] = response.css(REVIEW_COUNT_SELECTOR).extract_first()
         item['image_url'] = response.css(IMAGE_SELECTOR).xpath("@src").extract_first()
         item['duration'] = response.css(DURATION_SELECTOR).extract()
+        # combine address parts into one item, remove any NoneType
         if(response.css(STREET_ADDRESS_SELECTOR).extract_first()):
             street_address = ''.join(response.css(STREET_ADDRESS_SELECTOR).extract_first())+', '
         else:
@@ -95,7 +89,9 @@ class TripAdvisorSpider(scrapy.Spider):
         else:
             locality = ''
         address = street_address + extended_address + locality
-        
+        item['address'] = [address]
+
+        # get attraction description using Selenium
         if(response.css('.attractions-attraction-detail-about-card-Description__readMore--2pd33').extract()):
             item['description'] = [getAttractionDescription(response.request.url)]
             print(item['description'])
@@ -105,28 +101,27 @@ class TripAdvisorSpider(scrapy.Spider):
             else:
                 item['description'] = ''
         
-        item['address'] = [address]
+        
         yield item
-
+'''
 process = CrawlerProcess({
     'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)',
     'ITEM_PIPELINES' : {'pipeline.ItemPipeline':100}
     })   
 '''
-process = CrawlerProcess({
-    'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)',
-    'ITEM_PIPELINES' : {'jsonpipeline.JsonPipeline':100}
-    }) 
 '''
-
 with open('cities.json') as f:
     cities = json.load(f)
 
 for city in cities:
-    print(city['city'])
+    process = CrawlerProcess({
+    'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)',
+    'ITEM_PIPELINES' : {'jsonpipeline.JsonPipeline':100}
+    }) 
     process.crawl(TripAdvisorSpider, city = city['city'], country = city['country'])
 
 process.start() 
+'''
 
 '''
 process.crawl(TripAdvisorSpider, city = "New York City", country = "USA")
