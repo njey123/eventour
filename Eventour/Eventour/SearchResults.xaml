@@ -4,66 +4,69 @@
         <OnPlatform x:TypeArguments="Thickness">
             <!-- <On Platform="iOS" Value="20, 40, 20, 20" /> -->
             <On Platform="iOS" Value="0" />
-            <On Platform="Android, UWP" Value="20" />
+            <!-- <On Platform="Android, UWP" Value="20" /> -->
+            <On Platform="Android, UWP" Value="0" />
         </OnPlatform>
     </ContentPage.Padding>
-    <ScrollView>
-    <StackLayout x:Name="SearchResultsStack">
+    <StackLayout x:Name="TopMenuBarStack">
       <!-- <Image Source="Logo.png" /> -->
-      <Grid Padding="0, 0, 0, 40" HorizontalOptions="Fill" VerticalOptions="Fill">  <!-- Start of Top Bar -->
+      <Grid Padding="0, 0, 0, 0" HorizontalOptions="Fill" VerticalOptions="Fill">  <!-- Start of Top Bar -->
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <BoxView HeightRequest="50" HorizontalOptions="Fill" BackgroundColor="#72D5E6" Opacity="0.6"/>
-        <Image Aspect="AspectFill" Source="LogoWords.png" HorizontalOptions="Start"/>
-        <Image Aspect="AspectFill" Source="Plus.png" HorizontalOptions="End"/> 
+        <BoxView HeightRequest="50" HorizontalOptions="Fill" BackgroundColor="#72D5E6" Opacity="0.8"/>
+        <ImageButton Aspect="AspectFill" Source="LogoWords.png" HorizontalOptions="Start" Clicked="OnLogoBtnClicked"/>
+        <ImageButton Aspect="AspectFill" Source="Plus.png" HorizontalOptions="End" Clicked="OnPlusImgBtnClicked"/> 
       </Grid>  <!-- End of Top Bar -->
-      <Grid Padding="30, 0, 30, 0">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="7*" />
-        <ColumnDefinition Width="5*" />
-      </Grid.ColumnDefinitions>
-      <Label Text="Destination: " TextColor="#3ECCE5" FontAttributes="Bold"/>
-      <!-- For Testing: <Label x:Name="test" Text="" TextColor="#3ECCE5" FontAttributes="Bold"/> -->
-      <Label x:Name="destinationResult" Text="" TextColor="Red" Grid.Column="1"/>
-      </Grid>
-      <Grid Padding="30, 0, 30, 0">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="7*" />
-        <ColumnDefinition Width="5*" />
-      </Grid.ColumnDefinitions>
-      <Label Text="Start Date:" TextColor="#3ECCE5" FontAttributes="Bold" Grid.Column="0"/> 
-      <Label x:Name="startDateResult" Text="" TextColor="Red" Grid.Column="1"/>
-      </Grid>
-      <Grid Padding="30, 0, 30, 40">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="7*" />
-        <ColumnDefinition Width="5*" />
-      </Grid.ColumnDefinitions>
-      <Label Text="End Date:" TextColor="#3ECCE5" FontAttributes="Bold"/> 
-      <Label x:Name="endDateResult" Text="" TextColor="Red" Grid.Column="1"/>
-      </Grid>
-      <!-- 
-      <Grid>
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="5*" />
-        <ColumnDefinition Width="5*" />
-      </Grid.ColumnDefinitions>
-      <Label Text="Attraction:" TextColor="#3ECCE5" /> 
-      <Label x:Name="attractionResult" Text="" TextColor="Red" Grid.Column="1"/>
-      </Grid>
-      <Grid>
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="5*" />
-        <ColumnDefinition Width="5*" />
-      </Grid.ColumnDefinitions>
-      <Label Text="Rating:" TextColor="#3ECCE5" /> 
-      <Label x:Name="ratingResult" Text="" TextColor="Red" Grid.Column="1"/>
-      </Grid> 
-      -->
-    </StackLayout>
+      <ScrollView>
+        <StackLayout x:Name="SearchResultsStack">
+          <Grid Padding="30, 40, 30, 0">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7*" />
+            <ColumnDefinition Width="5*" />
+          </Grid.ColumnDefinitions>
+          <Label Text="Destination: " TextColor="#3ECCE5" FontAttributes="Bold"/>
+          <!-- For Testing: <Label x:Name="test" Text="" TextColor="#3ECCE5" FontAttributes="Bold"/> -->
+          <Label x:Name="destinationResult" Text="" TextColor="Red" Grid.Column="1"/>
+          </Grid>
+          <Grid Padding="30, 0, 30, 0">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7*" />
+            <ColumnDefinition Width="5*" />
+          </Grid.ColumnDefinitions>
+          <Label Text="Start Date:" TextColor="#3ECCE5" FontAttributes="Bold" Grid.Column="0"/> 
+          <Label x:Name="startDateResult" Text="" TextColor="Red" Grid.Column="1"/>
+          </Grid>
+          <Grid Padding="30, 0, 30, 40">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7*" />
+            <ColumnDefinition Width="5*" />
+          </Grid.ColumnDefinitions>
+          <Label Text="End Date:" TextColor="#3ECCE5" FontAttributes="Bold"/> 
+          <Label x:Name="endDateResult" Text="" TextColor="Red" Grid.Column="1"/>
+          </Grid>
+          <!-- 
+          <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*" />
+            <ColumnDefinition Width="5*" />
+          </Grid.ColumnDefinitions>
+          <Label Text="Attraction:" TextColor="#3ECCE5" /> 
+          <Label x:Name="attractionResult" Text="" TextColor="Red" Grid.Column="1"/>
+          </Grid>
+          <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*" />
+            <ColumnDefinition Width="5*" />
+          </Grid.ColumnDefinitions>
+          <Label Text="Rating:" TextColor="#3ECCE5" /> 
+          <Label x:Name="ratingResult" Text="" TextColor="Red" Grid.Column="1"/>
+          </Grid> 
+          -->
+        </StackLayout>
     </ScrollView>
+  </StackLayout>
 </ContentPage>
