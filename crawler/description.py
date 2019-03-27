@@ -15,8 +15,8 @@ options.add_argument("--headless")
 
 
 def getAttractionDescription(url):
-    #driver = webdriver.Chrome('/usr/local/bin/chromedriver',chrome_options=options)
-    driver = webdriver.Chrome('/usr/bin/chromedriver', chrome_options=options)
+    driver = webdriver.Chrome('/usr/local/bin/chromedriver',chrome_options=options)
+    #driver = webdriver.Chrome('/usr/bin/chromedriver', chrome_options=options)
     driver.implicitly_wait(10) # this lets webdriver wait 10 seconds for the website to load
     driver.get(url)
     #driver.get('https://www.tripadvisor.ca/Attraction_Review-g60763-d105127-Reviews-Central_Park-New_York_City_New_York.html')

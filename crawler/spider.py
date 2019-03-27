@@ -1,5 +1,5 @@
 import scrapy
-from search import getCityUrl
+#from search import getCityUrl
 from description import getAttractionDescription
 from scrapy.crawler import CrawlerProcess
 from items import AttractionItem
@@ -12,11 +12,11 @@ class TripAdvisorSpider(scrapy.Spider):
     #urls = getCityUrl('New York') #get url for the city attraction search result page and the next page
     #start_urls = [urls[0]] #use the first url as start url
 
-    def __init__(self, city = None, country = None, **kwargs):
+    def __init__(self, city = None, country = None, url = None, url_next = None, **kwargs):
         print(colored('spider initialized', 'cyan'))
-        self.dest = city + ' ' + country
-        self.urls = getCityUrl(city, country)
-        #self.urls = [url, url_next]
+        self.dest = city + ', ' + country
+        #self.urls = getCityUrl(city, country)
+        self.urls = [url, url_next]
         self.start_urls = [self.urls[0]]
         #self.start_urls.append('https://www.tripadvisor.ca/Attractions-g60763-Activities-New_York_City_New_York.html')
     
@@ -36,6 +36,7 @@ class TripAdvisorSpider(scrapy.Spider):
         yield scrapy.Request(
             next_url, self.parse_next_page
         )
+        
         
         
     def parse_next_page(self, response):

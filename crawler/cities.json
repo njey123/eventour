@@ -1,22 +1,32 @@
 [
-  {
-    "city": "New York City",
-    "country": "United States"
-  },
-  {
-    "city": "Copenhagen",
-    "country": "Denmark"
-  },
-  {
-    "city": "Paris",
-    "country": "France"
-  },
-  {
-    "city": "Beijing",
-    "country": "China"
-  },
-  {
-    "city": "Toronto",
-    "country": "Canada"
-  }
+	{
+		"city": "New York City",
+		"country": "United States",
+		"url": "https://www.tripadvisor.ca/Attractions-g60763-Activities-New_York_City_New_York.html",
+		"url_next": "https://www.tripadvisor.ca/Attractions-g60763-Activities-oa30-New_York_City_New_York.html"
+	},
+	{
+		"city": "Copenhagen",
+		"country": "Denmark",
+		"url": "https://www.tripadvisor.ca/Attractions-g189541-Activities-Copenhagen_Zealand.html",
+		"url_next": "https://www.tripadvisor.ca/Attractions-g189541-Activities-oa30-Copenhagen_Zealand.html"
+	},
+	{
+		"city": "Paris",
+		"country": "France",
+		"url": "https://www.tripadvisor.ca/Attractions-g187147-Activities-Paris_Ile_de_France.html",
+		"url_next": "https://www.tripadvisor.ca/Attractions-g187147-Activities-oa30-Paris_Ile_de_France.html"
+	},
+	{
+		"city": "Beijing",
+		"country": "China",
+		"url": "https://www.tripadvisor.ca/Attractions-g294212-Activities-Beijing.html",
+		"url_next": "https://www.tripadvisor.ca/Attractions-g294212-Activities-oa30-Beijing.html"
+	},
+	{
+		"city": "Toronto",
+		"country": "Canada",
+		"url": "https://www.tripadvisor.ca/Attractions-g155019-Activities-Toronto_Ontario.html",
+		"url_next": "https://www.tripadvisor.ca/Attractions-g155019-Activities-oa30-Toronto_Ontario.html"
+	}
 ]

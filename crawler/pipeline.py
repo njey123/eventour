@@ -35,14 +35,11 @@ class ItemPipeline(object):
         
         print('\nInserting a new row into database...')
         try:
-            tsql = "REPLACE INTO" + self.table_name + "(dest, name, rating, review_count, image_url, duration, description, address) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)" 
+            tsql = "INSERT INTO " + self.table_name + "(dest, name, rating, review_count, image_url, duration, description, address) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)" 
             self.cursor.execute(tsql, (self.dest, item['name'], item['rating'], item['review_count'], item['image_url'], item['duration'], item['description'], item['address']))
             self.conn.commit()
         except pymssql.Error as e:
             print("Error inserting row in database")
-
-
-
 
         return item
     '''
