@@ -2,21 +2,60 @@
 using System.Collections.Generic;
 
 using Xamarin.Forms;
+using RestSharp;
 
 namespace Eventour
 {
     public partial class SearchResults : ContentPage
     {
+        public class DataDisplay
+        {
+            public string Dest { get; set; }
+            public string StartDate { get; set; }
+            public string EndDate { get; set; }
+            public List<List<string>> Attractions { get; set; }
+            public List<List<string>> Ratings { get; set; }
+            public List<List<string>> ReviewCounts { get; set; }
+            public List<List<string>> ImageURLs { get; set; }
+            public List<List<string>> Durations { get; set; }
+            public List<List<string>> Descriptions { get; set; }
+            public List<List<string>> Addresses { get; set; }
+        }
+
+        // ===============================================
+        // Global variables
+        // ===============================================
+
+        public static DataDisplay displayedData;
         // Create grid for every day in trip and every attraction on every day in trip
         List<List<Grid>> imgGrids = new List<List<Grid>>();
         List<List<Grid>> textGrids = new List<List<Grid>>();
         List<List<ImageButton>> imgBtns = new List<List<ImageButton>>();
         // List<List<MinusImgBtnDecorator>> minusImgBtnDecorators = new List<List<MinusImgBtnDecorator>>();
 
+        // List of attractions to remove
+        List<string> attractionsToRemove = new List<string>();
+        // List of days corresponding to attractions to be removed
+        List<int> daysForAttractionsToRemove = new List<int>();
 
         public SearchResults(string dest, string startDate, string endDate, List<List<string>> attractions, List<List<string>> ratings, List<List<string>> reviewCounts, List<List<string>> imageURLs, List<List<string>> durations, List<List<string>> descriptions, List<List<string>> addresses)
         {
             InitializeComponent();
+
+            // Store database query results in global variables
+            displayedData = new DataDisplay
+            {
+                Dest = dest,
+                StartDate = startDate,
+                EndDate = endDate,
+                Attractions = attractions,
+                Ratings = ratings,
+                ReviewCounts = reviewCounts,
+                ImageURLs = imageURLs,
+                Durations = durations,
+                Descriptions = descriptions,
+                Addresses = addresses
+            };
 
             DateTime startDateObj = DateTime.ParseExact(startDate, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
             DateTime endDateObj = DateTime.ParseExact(endDate, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
@@ -26,7 +65,7 @@ namespace Eventour
             endDateResult.Text = (endDateObj).ToString("MMM. dd, yyyy");
 
             // For each day in trip
-            for (int i = 0; i < attractions.Count; i++) {
+            for (int i = 0; i < displayedData.Attractions.Count; i++) {
                 var horizLine = new BoxView { HorizontalOptions = LayoutOptions.FillAndExpand, HeightRequest = 2, BackgroundColor = Color.FromHex("#F5F5F5") };
                 SearchResultsStack.Children.Add(horizLine);
 
@@ -61,23 +100,51 @@ namespace Eventour
                 minusImgBtnDecorators.Add(currDayMinusImgBtnDecorators); */
 
                 // For each attraction planned on current day in trip
-                for (int j = 0; j < attractions[i].Count; j++)
+                for (int j = 0; j < displayedData.Attractions[i].Count; j++)
                 {
+                    // Grid for text
+                    var grid = new Grid { Padding = new Thickness(30, 0, 30, 30) };
+
+                    // If no more attraction results to display (no more database results)
+                    if (String.IsNullOrEmpty(displayedData.Attractions[i][j]))
+                    {
+                        // Create 1x1 grid for text
+                        grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                        grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+
+                        // Heading
+                        var noActivitiesLabel = new Label { Text = "No activities to display.", TextColor = Color.Black, HorizontalTextAlignment = TextAlignment.Start, VerticalTextAlignment = TextAlignment.Center};
+
+                        // Add to grid
+                        grid.Children.Add(noActivitiesLabel, 0, 0);
+                        // Add to stack layout
+                        SearchResultsStack.Children.Add(grid);
+
+                        break;
+                    }
+
                     // Create 4x5 grid for image
                     var imgGrid = new Grid { Padding = new Thickness(30, 20, 30, 20), HorizontalOptions = LayoutOptions.Fill, VerticalOptions = LayoutOptions.Fill };
-                    imgGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(135) });
-                    imgGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(65) });
+                    imgGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(140) });
+                    imgGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(60) });
                     imgGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
                     currDayImgGrid.Add(imgGrid);
 
                     // Boxviews
                     var currBoxview = new BoxView { CornerRadius = 10, HorizontalOptions = LayoutOptions.Fill, BackgroundColor = Color.FromHex("#72D5E6"), Opacity = 0.8 };
                     // Image
-                    var attractionImg = new Image { Source = "https://media-cdn.tripadvisor.com/media/photo-w/0f/38/33/f6/beautiful-day-to-see.jpg", Aspect = Aspect.Fill, HorizontalOptions = LayoutOptions.Fill, VerticalOptions = LayoutOptions.Fill };
+                    var attractionImg = new Image { Source = displayedData.ImageURLs[i][j], Aspect = Aspect.AspectFill, HorizontalOptions = LayoutOptions.Fill, VerticalOptions = LayoutOptions.Fill };
 
                     // Minus image button
-                    string bindingContextMinusImgBtn = String.Format("{0},{1}", i, j);
-                    var minusImgBtn = new ImageButton { Source = "Minus.png", Aspect = Aspect.Fill, HorizontalOptions = LayoutOptions.End, BindingContext = bindingContextMinusImgBtn};
+                    string bindingContextMinusImgBtn = String.Format("{0},{1},{2}", i, j, displayedData.Attractions[i][j]);
+                    // string bindingContextMinusImgBtn = String.Format("{0},{1}", i, displayedData.Attractions[i].FindIndex(displayedData.Attractions[i][j].Contains));
+                    var minusImgBtn = new ImageButton
+                    {
+                        Source = "Minus.png", 
+                        Aspect = Aspect.AspectFill, 
+                        HorizontalOptions = LayoutOptions.End, 
+                        BindingContext = bindingContextMinusImgBtn
+                    };
                     currDayImgBtns.Add(minusImgBtn);
                     // Event handler - when click minus button
                     imgBtns[i][j].Clicked += OnMinusImgBtnClicked;
@@ -108,11 +175,10 @@ namespace Eventour
                     imgGrid.Children.Add(minusImgBtn, 0, 1);
 
                     // Create 3x2 grid for text
-                    var grid = new Grid { Padding = new Thickness(30, 0, 30, 30) };
-                    grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star)});
-                    grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-                    grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-                    grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+                    grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                    grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                    grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                    grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
                     grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(7, GridUnitType.Star) });
                     grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(5, GridUnitType.Star) });
                     currDayTextGrid.Add(grid);
@@ -120,17 +186,17 @@ namespace Eventour
                     // Heading
                     var attractionHeading = new Label { Text = "Attraction: ", TextColor = Color.Black };
                     // Get current attraction for the current day in trip
-                    var currAttraction = new Label { Text = attractions[i][j], TextColor = Color.Red };
+                    var currAttraction = new Label { Text = displayedData.Attractions[i][j].Trim(), TextColor = Color.Red };
 
                     // Heading
                     var ratingHeading = new Label { Text = "Rating: ", TextColor = Color.Black };
                     // Get rating for the current attraction
-                    var currRating = new Label { Text = ratings[i][j], TextColor = Color.Red };
+                    var currRating = new Label { Text = displayedData.Ratings[i][j].Trim(), TextColor = Color.Red };
 
                     // Heading
                     var reviewCountHeading = new Label { Text = "Number of Reviews: ", TextColor = Color.Black };
                     // Get number of reviews for the current attraction
-                    var currReviewCount = new Label { Text = reviewCounts[i][j], TextColor = Color.Red };
+                    var currReviewCount = new Label { Text = displayedData.ReviewCounts[i][j].Trim(), TextColor = Color.Red };
 
                     // Heading
                     var durationHeading = new Label { Text = "Estimated Duration: ", TextColor = Color.Black };
@@ -139,17 +205,17 @@ namespace Eventour
                     string currDurationStr = "";
 
                     // If duration is not an empty string
-                    if (!String.IsNullOrEmpty(durations[i][j]))
+                    if (!String.IsNullOrEmpty(displayedData.Durations[i][j].Trim()))
                     {
-                        if (Int32.Parse(durations[i][j]) == 0)
+                        if (Int32.Parse(displayedData.Durations[i][j].Trim()) == 0)
                         {
                             currDurationStr = "< 1 hour";
                         }
-                        else if (Int32.Parse(durations[i][j]) == 1)
+                        else if (Int32.Parse(displayedData.Durations[i][j].Trim()) == 1)
                         {
                             currDurationStr = "1-2 hours";
                         }
-                        else if (Int32.Parse(durations[i][j]) == 2)
+                        else if (Int32.Parse(displayedData.Durations[i][j].Trim()) == 2)
                         {
                             currDurationStr = "2-3 hours";
                         }
@@ -195,6 +261,7 @@ namespace Eventour
             string[] indicesStrArr = indicesStr.Split(',');
             int dayIdx = Int32.Parse(indicesStrArr[0]);
             int imgGridIdx = Int32.Parse(indicesStrArr[1]);
+            string attraction = indicesStr[2].ToString();
 
             /* var dayIdx = minusImgBtnDecorator.DayIndex;
             var imgGridIdx = minusImgBtnDecorator.ImgGridIndex;*/
@@ -202,6 +269,87 @@ namespace Eventour
             // Remove image and text grids from page
             SearchResultsStack.Children.Remove(imgGrids[dayIdx][imgGridIdx]);
             SearchResultsStack.Children.Remove(textGrids[dayIdx][imgGridIdx]);
+
+            // Keep track of attractions to remove
+            attractionsToRemove.Add(attraction);
+            daysForAttractionsToRemove.Add(dayIdx);
+
+            /* imgGrids[dayIdx].RemoveAt(imgGridIdx);
+            textGrids[dayIdx].RemoveAt(imgGridIdx); */
+
+            /* // Remove attraction and associated information from global variable
+            displayedData.Attractions[dayIdx].RemoveAt(imgGridIdx);
+            displayedData.Ratings[dayIdx].RemoveAt(imgGridIdx);
+            displayedData.ReviewCounts[dayIdx].RemoveAt(imgGridIdx);
+            displayedData.ImageURLs[dayIdx].RemoveAt(imgGridIdx);
+            displayedData.Durations[dayIdx].RemoveAt(imgGridIdx);
+            displayedData.Descriptions[dayIdx].RemoveAt(imgGridIdx);
+            displayedData.Addresses[dayIdx].RemoveAt(imgGridIdx); */
+        }
+
+        // When logo button on top menu bar is clicked
+        async void OnLogoBtnClicked(object sender, EventArgs e)
+        {
+            var mainPage = new MainPage();
+
+            // Disable back button on next page
+            NavigationPage.SetHasBackButton(mainPage, false);
+            await Navigation.PushAsync(mainPage);
+        }
+
+        void RemoveAttractions()
+        {
+            for (int i = 0; i < attractionsToRemove.Count; i++)
+            {
+                int dayIdx = daysForAttractionsToRemove[i];
+                int index = displayedData.Attractions[dayIdx].FindIndex(attractionsToRemove[i].Contains);
+
+                if (index >= 0)
+                {
+                    // Remove attraction and associated information from global variable
+                    displayedData.Attractions[dayIdx].RemoveAt(index);
+                    displayedData.Ratings[dayIdx].RemoveAt(index);
+                    displayedData.ReviewCounts[dayIdx].RemoveAt(index);
+                    displayedData.ImageURLs[dayIdx].RemoveAt(index);
+                    displayedData.Durations[dayIdx].RemoveAt(index);
+                    displayedData.Descriptions[dayIdx].RemoveAt(index);
+                    displayedData.Addresses[dayIdx].RemoveAt(index);
+                }
+            }
+        }
+
+        // Go to new page when user wants to add attractions
+        async void OnPlusImgBtnClicked(object sender, EventArgs e)
+        {
+            var client = new RestClient();
+            // client.BaseUrl = new Uri("http://127.0.0.1:5000/");
+            client.BaseUrl = new Uri("http://eventour.fun:5000/");
+
+            int numDaysToQueryFor = 35;
+            DateTime startDateObj = DateTime.ParseExact(startDateResult.Text, "MMM. dd, yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            DateTime endDateObj = DateTime.ParseExact(endDateResult.Text, "MMM. dd, yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            DateTime newEndDateObj = endDateObj.AddDays(numDaysToQueryFor);
+
+            var request = new RestRequest("test", Method.POST);
+            request.AddParameter("dest", destinationResult.Text);
+            request.AddParameter("start_date", (startDateObj).ToString("dd/MM/yyyy"));
+            request.AddParameter("end_date", (newEndDateObj).ToString("dd/MM/yyyy"));
+
+            // Send request to server and get response back
+            IRestResponse response = client.Execute(request);
+
+            // Deserialize JSON response from server
+            DataDisplay data = Newtonsoft.Json.JsonConvert.DeserializeObject<DataDisplay>(response.Content);
+
+            // Remove attractions before navigating to next page
+            RemoveAttractions();
+
+            var addAttractionsPage = new AddAttractions(data.Dest, data.StartDate, (endDateObj).ToString("dd/MM/yyyy"), data.Attractions, data.Ratings, data.ReviewCounts, data.ImageURLs, data.Durations, data.Descriptions, data.Addresses);
+            addAttractionsPage.BindingContext = displayedData;
+
+            // Disable back button on page where user can add attractions
+            NavigationPage.SetHasBackButton(addAttractionsPage, false);
+            await Navigation.PushAsync(addAttractionsPage);
         }
 
         async void OnSuggestButtonClicked(object sender, EventArgs e)

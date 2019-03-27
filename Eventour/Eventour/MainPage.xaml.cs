@@ -48,7 +48,11 @@ namespace Eventour
             // Deserialize JSON response from server
             DataDisplay data = Newtonsoft.Json.JsonConvert.DeserializeObject<DataDisplay>(response.Content);
 
-            await Navigation.PushAsync(new SearchResults(data.Dest, data.StartDate, data.EndDate, data.Attractions, data.Ratings, data.ReviewCounts, data.ImageURLs, data.Durations, data.Descriptions, data.Addresses));
+            var searchResultsPage = new SearchResults(data.Dest, data.StartDate, data.EndDate, data.Attractions, data.Ratings, data.ReviewCounts, data.ImageURLs, data.Durations, data.Descriptions, data.Addresses);
+
+            // Disable back button on next page
+            NavigationPage.SetHasBackButton(searchResultsPage, false);
+            await Navigation.PushAsync(searchResultsPage);
         }
     }
 }

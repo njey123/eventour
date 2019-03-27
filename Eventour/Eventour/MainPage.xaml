@@ -12,7 +12,7 @@
     <StackLayout>
       <Image Source="LogoWords.png" />
       <Label Text="Destination" TextColor="#3ECCE5"/>
-      <Entry x:Name="destination" Text="New York City, New York" />
+      <Entry x:Name="destination" Text="Beijing China" />
       <Grid>
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="5*" />
