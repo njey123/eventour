@@ -14,6 +14,7 @@ namespace Eventour
         // Create grid for every day in trip and every attraction on every day in trip
         List<List<Grid>> imgGrids = new List<List<Grid>>();
         List<List<Grid>> textGrids = new List<List<Grid>>();
+        List<List<ImageButton>> attractionImgBtns = new List<List<ImageButton>>();
         List<List<ImageButton>> imgBtns = new List<List<ImageButton>>();
 
         // Data on page where user can add attractions
@@ -81,6 +82,8 @@ namespace Eventour
                 imgGrids.Add(currDayImgGrid);
                 List<Grid> currDayTextGrid = new List<Grid>();
                 textGrids.Add(currDayTextGrid);
+                List<ImageButton> currDayAttractionImgBtns = new List<ImageButton>();
+                attractionImgBtns.Add(currDayAttractionImgBtns);
                 List<ImageButton> currDayImgBtns = new List<ImageButton>();
                 imgBtns.Add(currDayImgBtns);
 
@@ -117,9 +120,50 @@ namespace Eventour
                     currDayImgGrid.Add(imgGrid);
 
                     // Boxviews
-                    var currBoxview = new BoxView { CornerRadius = 10, HorizontalOptions = LayoutOptions.Fill, BackgroundColor = Color.FromHex("#72D5E6"), Opacity = 0.8 };
+                    var currBoxview = new BoxView { CornerRadius = 10, HorizontalOptions = LayoutOptions.Fill, BackgroundColor = Color.FromHex("#72D5E6"), Opacity = 0.4 };
+
                     // Image
-                    var attractionImg = new Image { Source = imageURLs[i][j], Aspect = Aspect.AspectFill, HorizontalOptions = LayoutOptions.Fill, VerticalOptions = LayoutOptions.Fill };
+                    string bindingContextAttractionImgBtn = String.Format("{0},{1}", i, j);
+                    var attractionImg = new ImageButton();
+                    var noImageLabel = new Label();
+
+                    // Check if image URL is a valid URL
+                    Uri uriResult;
+                    bool isImageURLValid = Uri.TryCreate(imageURLs[i][j], UriKind.Absolute, out uriResult)
+                        && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+
+                    // If there is an image available
+                    if (!String.IsNullOrEmpty(imageURLs[i][j]) && isImageURLValid == true)
+                    {
+                        attractionImg = new ImageButton
+                        {
+                            Source = imageURLs[i][j],
+                            Aspect = Aspect.AspectFill,
+                            HorizontalOptions = LayoutOptions.Fill,
+                            VerticalOptions = LayoutOptions.Fill,
+                            BindingContext = bindingContextAttractionImgBtn
+                        };
+                    }
+                    // If no image available
+                    else
+                    {
+                        attractionImg = new ImageButton
+                        {
+                            Aspect = Aspect.AspectFill,
+                            HorizontalOptions = LayoutOptions.Fill,
+                            VerticalOptions = LayoutOptions.Fill,
+                            BindingContext = bindingContextAttractionImgBtn
+                        };
+
+                        // Heading
+                        noImageLabel = new Label { Text = "No image found", TextColor = Color.Black, HorizontalTextAlignment = TextAlignment.Center, VerticalTextAlignment = TextAlignment.Center };
+                    }
+                    currDayAttractionImgBtns.Add(attractionImg);
+                    attractionImgBtns[i][j].Clicked += OnAttractionImgBtnClicked;
+
+                    /* var attractionImg = new ImageButton { Source = imageURLs[i][j], Aspect = Aspect.AspectFill, HorizontalOptions = LayoutOptions.Fill, VerticalOptions = LayoutOptions.Fill, BindingContext = bindingContextAttractionImgBtn };
+                    currDayAttractionImgBtns.Add(attractionImg);
+                    attractionImgBtns[i][j].Clicked += OnAttractionImgBtnClicked; */
 
                     // Plus image button
                     string bindingContextPlusImgBtn = String.Format("{0},{1}", i, j);
@@ -140,7 +184,17 @@ namespace Eventour
 
                     // Add to image grid
                     imgGrid.Children.Add(currBoxview, 0, 1, 0, 2);
-                    imgGrid.Children.Add(imgFrame, 0, 1, 0, 2);
+
+                    // If there is an image available
+                    if (!String.IsNullOrEmpty(imageURLs[i][j]) && isImageURLValid == true)
+                    {
+                        imgGrid.Children.Add(imgFrame, 0, 1, 0, 2);
+                    }
+                    else
+                    {
+                        imgGrid.Children.Add(noImageLabel, 0, 1, 0, 2);
+                    }
+
                     imgGrid.Children.Add(plusImgBtn, 0, 1);
 
                     // Create 3x2 grid for text
@@ -304,6 +358,22 @@ namespace Eventour
             // Disable back button on next page
             NavigationPage.SetHasBackButton(searchResultsPage, false);
             await Navigation.PushAsync(searchResultsPage);
+        }
+
+        // Show detailed information about attraction
+        async void OnAttractionImgBtnClicked(object sender, EventArgs e)
+        {
+            var imgBtn = sender as ImageButton;
+
+            // Get description and address for attraction
+            string indicesStr = imgBtn.BindingContext as string;
+            string[] indicesStrArr = indicesStr.Split(',');
+            int dayIdx = Int32.Parse(indicesStrArr[0]);
+            int imgGridIdx = Int32.Parse(indicesStrArr[1]);
+            string attraction = indicesStr[2].ToString();
+
+            var attractionDetailsPage = new AttractionDetails(addAttractionPageData.Descriptions[dayIdx][imgGridIdx], addAttractionPageData.Addresses[dayIdx][imgGridIdx], addAttractionPageData.Attractions[dayIdx][imgGridIdx]);
+            await Navigation.PushAsync(attractionDetailsPage);
         }
 
         async void OnPlusImgBtnClicked(object sender, EventArgs e)

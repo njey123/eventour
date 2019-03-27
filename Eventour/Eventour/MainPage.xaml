@@ -10,16 +10,18 @@
     </ContentPage.Padding>
     <ScrollView>
     <StackLayout>
-      <Image Source="LogoWords.png" />
-      <Label Text="Destination" TextColor="#3ECCE5"/>
-      <Entry x:Name="destination" Text="Beijing China" />
-      <Grid>
+      <Image Source="LogoWordsCentred.png" HorizontalOptions="Center"/>
+      <Grid Padding="0, 20, 0, 0">
+      </Grid>
+      <Label Text="Destination" TextColor="#3ECCE5" FontAttributes="Bold"/>
+      <Entry x:Name="destination" Text="Copenhagen, Denmark" />
+      <Grid Padding="0, 20, 0, 0">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="5*" />
         <ColumnDefinition Width="5*" />
       </Grid.ColumnDefinitions>
-      <Label Text="Start Date" TextColor="#3ECCE5" /> 
-      <Label Text="End Date" TextColor="#3ECCE5" Grid.Column="1"/>
+      <Label Text="Start Date" TextColor="#3ECCE5" FontAttributes="Bold"/> 
+      <Label Text="End Date" TextColor="#3ECCE5" FontAttributes="Bold" Grid.Column="1"/>
       </Grid>
         
       <Grid>
@@ -31,23 +33,19 @@
       <Entry x:Name="endDate" Text="03/02/2019" Grid.Column="1"/>
       </Grid>
       
+      <Grid Padding="0, 20, 0, 0">
       <Button 
         x:Name="suggestTripButton" 
         Text="Suggest A Trip"
         TextColor="White"
+        FontSize="Medium"
         BackgroundColor="Red"
         BorderRadius="10"
         Clicked="OnSuggestButtonClicked"
         Margin="20,10,20,0"
         />
-      <Button 
-        x:Name="callButton"
-        Text="Build My Trip"
-        TextColor="White"
-        BackgroundColor="Red"
-        BorderRadius="10"
-        Margin="20,10,20,0"
-        /><ScrollView></ScrollView><ScrollView></ScrollView><ScrollView></ScrollView>
+      </Grid>
+    <ScrollView></ScrollView><ScrollView></ScrollView><ScrollView></ScrollView>
     </StackLayout>
     </ScrollView>
 </ContentPage>

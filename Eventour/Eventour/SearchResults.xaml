@@ -29,7 +29,7 @@
             <ColumnDefinition Width="5*" />
           </Grid.ColumnDefinitions>
           <Label Text="Destination: " TextColor="#3ECCE5" FontAttributes="Bold"/>
-          <!-- For Testing: <Label x:Name="test" Text="" TextColor="#3ECCE5" FontAttributes="Bold"/> -->
+          <!-- For Testing:<Label x:Name="test" Text="" TextColor="#3ECCE5" FontAttributes="Bold"/> -->
           <Label x:Name="destinationResult" Text="" TextColor="Red" Grid.Column="1"/>
           </Grid>
           <Grid Padding="30, 0, 30, 0">
@@ -40,13 +40,25 @@
           <Label Text="Start Date:" TextColor="#3ECCE5" FontAttributes="Bold" Grid.Column="0"/> 
           <Label x:Name="startDateResult" Text="" TextColor="Red" Grid.Column="1"/>
           </Grid>
-          <Grid Padding="30, 0, 30, 40">
+          <Grid Padding="30, 0, 30, 0">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="7*" />
             <ColumnDefinition Width="5*" />
           </Grid.ColumnDefinitions>
           <Label Text="End Date:" TextColor="#3ECCE5" FontAttributes="Bold"/> 
           <Label x:Name="endDateResult" Text="" TextColor="Red" Grid.Column="1"/>
+          </Grid>
+          <Grid Padding="0, 20, 0, 40">
+            <Button
+                x:Name="saveTripButton" 
+                Text="Save Trip"
+                TextColor="White"
+                FontSize="Medium"
+                BackgroundColor="Red"
+                BorderRadius="10"
+                Clicked="OnSaveButtonClicked"
+                Margin="50,10,50,0"
+            />
           </Grid>
           <!-- 
           <Grid>

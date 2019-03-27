@@ -8,6 +8,7 @@ namespace Eventour
 {
     public partial class SearchResults : ContentPage
     {
+        // Object used to contain data for one trip
         public class DataDisplay
         {
             public string Dest { get; set; }
@@ -30,6 +31,7 @@ namespace Eventour
         // Create grid for every day in trip and every attraction on every day in trip
         List<List<Grid>> imgGrids = new List<List<Grid>>();
         List<List<Grid>> textGrids = new List<List<Grid>>();
+        List<List<ImageButton>> attractionImgBtns = new List<List<ImageButton>>();
         List<List<ImageButton>> imgBtns = new List<List<ImageButton>>();
         // List<List<MinusImgBtnDecorator>> minusImgBtnDecorators = new List<List<MinusImgBtnDecorator>>();
 
@@ -93,6 +95,8 @@ namespace Eventour
                 imgGrids.Add(currDayImgGrid);
                 List<Grid> currDayTextGrid = new List<Grid>();
                 textGrids.Add(currDayTextGrid);
+                List<ImageButton> currDayAttractionImgBtns = new List<ImageButton>();
+                attractionImgBtns.Add(currDayAttractionImgBtns);
                 List<ImageButton> currDayImgBtns = new List<ImageButton>();
                 imgBtns.Add(currDayImgBtns);
                 /* // Create new list of minus image button decorators for current day
@@ -131,12 +135,54 @@ namespace Eventour
                     currDayImgGrid.Add(imgGrid);
 
                     // Boxviews
-                    var currBoxview = new BoxView { CornerRadius = 10, HorizontalOptions = LayoutOptions.Fill, BackgroundColor = Color.FromHex("#72D5E6"), Opacity = 0.8 };
+                    var currBoxview = new BoxView { CornerRadius = 10, HorizontalOptions = LayoutOptions.Fill, BackgroundColor = Color.FromHex("#72D5E6"), Opacity = 0.4 };
                     // Image
-                    var attractionImg = new Image { Source = displayedData.ImageURLs[i][j], Aspect = Aspect.AspectFill, HorizontalOptions = LayoutOptions.Fill, VerticalOptions = LayoutOptions.Fill };
+                    // string bindingContextAttractionImgBtn = String.Format("{0}~{1}", displayedData.Descriptions[i][j], displayedData.Addresses[i][j]);
+                    string bindingContextAttractionImgBtn = String.Format("{0},{1}", i, j);
+                    /* List<string> bindingContextAttractionImgBtn = new List<string>();
+                    bindingContextAttractionImgBtn.Add(displayedData.Descriptions[i][j]);
+                    bindingContextAttractionImgBtn.Add(displayedData.Addresses[i][j]); */
+
+                    // Used to display images
+                    var attractionImg = new ImageButton();
+                    var noImageLabel = new Label();
+
+                    // Check if image URL is a valid URL
+                    Uri uriResult;
+                    bool isImageURLValid = Uri.TryCreate(displayedData.ImageURLs[i][j], UriKind.Absolute, out uriResult)
+                        && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+
+                    // If there is an image available
+                    if (!String.IsNullOrEmpty(displayedData.ImageURLs[i][j]) && isImageURLValid == true)
+                    {
+                        attractionImg = new ImageButton
+                        {
+                            Source = displayedData.ImageURLs[i][j],
+                            Aspect = Aspect.AspectFill,
+                            HorizontalOptions = LayoutOptions.Fill,
+                            VerticalOptions = LayoutOptions.Fill,
+                            BindingContext = bindingContextAttractionImgBtn
+                        };
+                    }
+                    // If no image available
+                    else
+                    {
+                        attractionImg = new ImageButton
+                        {
+                            Aspect = Aspect.AspectFill,
+                            HorizontalOptions = LayoutOptions.Fill,
+                            VerticalOptions = LayoutOptions.Fill,
+                            BindingContext = bindingContextAttractionImgBtn
+                        };
+
+                        // Heading
+                        noImageLabel = new Label { Text = "No image found", TextColor = Color.Black, HorizontalTextAlignment = TextAlignment.Center, VerticalTextAlignment = TextAlignment.Center };
+                    }
+                    currDayAttractionImgBtns.Add(attractionImg);
+                    attractionImgBtns[i][j].Clicked += OnAttractionImgBtnClicked;
 
                     // Minus image button
-                    string bindingContextMinusImgBtn = String.Format("{0},{1},{2}", i, j, displayedData.Attractions[i][j]);
+                    string bindingContextMinusImgBtn = String.Format("{0},{1},"+ displayedData.Attractions[i][j], i, j);
                     // string bindingContextMinusImgBtn = String.Format("{0},{1}", i, displayedData.Attractions[i].FindIndex(displayedData.Attractions[i][j].Contains));
                     var minusImgBtn = new ImageButton
                     {
@@ -171,7 +217,17 @@ namespace Eventour
 
                     // Add to image grid
                     imgGrid.Children.Add(currBoxview, 0, 1, 0, 2);
-                    imgGrid.Children.Add(imgFrame, 0, 1, 0, 2);
+
+                    // If there is an image available
+                    if (!String.IsNullOrEmpty(displayedData.ImageURLs[i][j]) && isImageURLValid == true)
+                    {
+                        imgGrid.Children.Add(imgFrame, 0, 1, 0, 2);
+                    }
+                    else
+                    {
+                        imgGrid.Children.Add(noImageLabel, 0, 1, 0, 2);
+                    }
+
                     imgGrid.Children.Add(minusImgBtn, 0, 1);
 
                     // Create 3x2 grid for text
@@ -251,6 +307,68 @@ namespace Eventour
             public ImageButton MinusImgBtn { get; set; }
         }
 
+        // Helper function - use to remove attractions the user wants to remove before navigating to a new page
+        void RemoveAttractions()
+        {
+            for (int i = 0; i < attractionsToRemove.Count; i++)
+            {
+                int dayIdx = daysForAttractionsToRemove[i];
+                int index = displayedData.Attractions[dayIdx].FindIndex(attractionsToRemove[i].Contains);
+
+                if (index >= 0)
+                {
+                    // Remove attraction and associated information from global variable displayedData
+                    displayedData.Attractions[dayIdx].RemoveAt(index);
+                    displayedData.Ratings[dayIdx].RemoveAt(index);
+                    displayedData.ReviewCounts[dayIdx].RemoveAt(index);
+                    displayedData.ImageURLs[dayIdx].RemoveAt(index);
+                    displayedData.Durations[dayIdx].RemoveAt(index);
+                    displayedData.Descriptions[dayIdx].RemoveAt(index);
+                    displayedData.Addresses[dayIdx].RemoveAt(index);
+                }
+            }
+        }
+
+        // When logo button on top menu bar is clicked
+        async void OnLogoBtnClicked(object sender, EventArgs e)
+        {
+            var mainPage = new MainPage();
+
+            // Disable back button on next page
+            NavigationPage.SetHasBackButton(mainPage, false);
+            await Navigation.PushAsync(mainPage);
+        }
+
+        // When user wants to save a trip
+        async void OnSaveButtonClicked(object sender, EventArgs e)
+        {
+            // Remove any attractions user chose to remove before navigating to next page
+            RemoveAttractions();
+
+            DataDisplay data = displayedData;
+            var tripsPage = new TripsPage(data.Dest, data.StartDate, data.EndDate, data.Attractions, data.Ratings, data.ReviewCounts, data.ImageURLs, data.Durations, data.Descriptions, data.Addresses);
+
+            // Disable back button on next page
+            NavigationPage.SetHasBackButton(tripsPage, false);
+            await Navigation.PushAsync(tripsPage);
+        }
+
+        // Show detailed information about attraction
+        async void OnAttractionImgBtnClicked(object sender, EventArgs e)
+        {
+            var imgBtn = sender as ImageButton;
+
+            // Get description and address for attraction
+            string indicesStr = imgBtn.BindingContext as string;
+            string[] indicesStrArr = indicesStr.Split(',');
+            int dayIdx = Int32.Parse(indicesStrArr[0]);
+            int imgGridIdx = Int32.Parse(indicesStrArr[1]);
+            string attraction = indicesStr[2].ToString();
+
+            var attractionDetailsPage = new AttractionDetails(displayedData.Descriptions[dayIdx][imgGridIdx], displayedData.Addresses[dayIdx][imgGridIdx], displayedData.Attractions[dayIdx][imgGridIdx]); 
+            await Navigation.PushAsync(attractionDetailsPage);
+        }
+
         // Delete attraction on certain day when minus button is clicked
         void OnMinusImgBtnClicked(object sender, EventArgs e)
         {
@@ -261,7 +379,7 @@ namespace Eventour
             string[] indicesStrArr = indicesStr.Split(',');
             int dayIdx = Int32.Parse(indicesStrArr[0]);
             int imgGridIdx = Int32.Parse(indicesStrArr[1]);
-            string attraction = indicesStr[2].ToString();
+            string attraction = indicesStrArr[2];
 
             /* var dayIdx = minusImgBtnDecorator.DayIndex;
             var imgGridIdx = minusImgBtnDecorator.ImgGridIndex;*/
@@ -287,37 +405,6 @@ namespace Eventour
             displayedData.Addresses[dayIdx].RemoveAt(imgGridIdx); */
         }
 
-        // When logo button on top menu bar is clicked
-        async void OnLogoBtnClicked(object sender, EventArgs e)
-        {
-            var mainPage = new MainPage();
-
-            // Disable back button on next page
-            NavigationPage.SetHasBackButton(mainPage, false);
-            await Navigation.PushAsync(mainPage);
-        }
-
-        void RemoveAttractions()
-        {
-            for (int i = 0; i < attractionsToRemove.Count; i++)
-            {
-                int dayIdx = daysForAttractionsToRemove[i];
-                int index = displayedData.Attractions[dayIdx].FindIndex(attractionsToRemove[i].Contains);
-
-                if (index >= 0)
-                {
-                    // Remove attraction and associated information from global variable
-                    displayedData.Attractions[dayIdx].RemoveAt(index);
-                    displayedData.Ratings[dayIdx].RemoveAt(index);
-                    displayedData.ReviewCounts[dayIdx].RemoveAt(index);
-                    displayedData.ImageURLs[dayIdx].RemoveAt(index);
-                    displayedData.Durations[dayIdx].RemoveAt(index);
-                    displayedData.Descriptions[dayIdx].RemoveAt(index);
-                    displayedData.Addresses[dayIdx].RemoveAt(index);
-                }
-            }
-        }
-
         // Go to new page when user wants to add attractions
         async void OnPlusImgBtnClicked(object sender, EventArgs e)
         {
@@ -341,7 +428,7 @@ namespace Eventour
             // Deserialize JSON response from server
             DataDisplay data = Newtonsoft.Json.JsonConvert.DeserializeObject<DataDisplay>(response.Content);
 
-            // Remove attractions before navigating to next page
+            // Remove any attractions user chose to remove before navigating to next page
             RemoveAttractions();
 
             var addAttractionsPage = new AddAttractions(data.Dest, data.StartDate, (endDateObj).ToString("dd/MM/yyyy"), data.Attractions, data.Ratings, data.ReviewCounts, data.ImageURLs, data.Durations, data.Descriptions, data.Addresses);

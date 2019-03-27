@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Eventour.TripsPage">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <!-- <On Platform="iOS" Value="20, 40, 20, 20" /> -->
+            <On Platform="iOS" Value="0" />
+            <!-- <On Platform="Android, UWP" Value="20" /> -->
+            <On Platform="Android, UWP" Value="0" />
+        </OnPlatform>
+    </ContentPage.Padding>
+    <StackLayout x:Name="TopMenuBarStack">
+        <Grid Padding="0, 0, 0, 0" HorizontalOptions="Fill" VerticalOptions="Fill">  <!-- Start of Top Bar -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <BoxView HeightRequest="50" HorizontalOptions="Fill" BackgroundColor="#72D5E6" Opacity="0.8"/>
+        <ImageButton Aspect="AspectFill" Source="LogoWords.png" HorizontalOptions="Start" Clicked="OnLogoBtnClicked"/>
+        </Grid>  <!-- End of Top Bar -->
+        <ScrollView IsClippedToBounds="True">
+            <StackLayout x:Name="TripsPageStack">
+            </StackLayout>
+        </ScrollView> 
+        <!-- For Testing: <Label x:Name="test" Text="" TextColor="#3ECCE5" FontAttributes="Bold"/> -->
+    </StackLayout>
+</ContentPage>
