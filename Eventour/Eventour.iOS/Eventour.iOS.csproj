@@ -153,5 +153,6 @@
     <BundleResource Include="Resources\Minus.png" />
     <BundleResource Include="Resources\Plus.png" />
     <BundleResource Include="Resources\Checkmark.png" />
+    <BundleResource Include="Resources\LogoWordsCentred.png" />
   </ItemGroup>
 </Project>
