@@ -71,11 +71,11 @@
         <BoxView BackgroundColor="#37D5DB" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="0"/>
         <Label Text="Search" TextColor="White" FontSize="16" HorizontalOptions="Center"
                 VerticalOptions="StartAndExpand" Grid.Row="1" Grid.Column="0"/>
-        <ImageButton Source="planning.png" HorizontalOptions="Center"
+        <ImageButton Source="planning.png" HorizontalOptions="Center" Clicked="OnPlanClicked"
                     VerticalOptions="CenterAndExpand" Grid.Column="1"/>
         <Label Text="Plan" TextColor="White" FontSize="16" HorizontalOptions="Center"
                 VerticalOptions="StartAndExpand" Grid.Row="1" Grid.Column="1"/>
-        <ImageButton Source="trip.png" HorizontalOptions="Center"
+        <ImageButton Source="trip.png" HorizontalOptions="Center" Clicked="OnTripClicked"
                     VerticalOptions="CenterAndExpand" Grid.Column="2"/>
         <Label Text="My Trips" TextColor="White" FontSize="16" HorizontalOptions="Center"
                 VerticalOptions="StartAndExpand" Grid.Row="1" Grid.Column="2"/>
