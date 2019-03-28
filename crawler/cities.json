@@ -28,5 +28,95 @@
 		"country": "Canada",
 		"url": "https://www.tripadvisor.ca/Attractions-g155019-Activities-Toronto_Ontario.html",
 		"url_next": "https://www.tripadvisor.ca/Attractions-g155019-Activities-oa30-Toronto_Ontario.html"
+	},
+	{
+		"city": "Amsterdam",
+		"country": "Netherlands",
+		"url": "https://www.tripadvisor.ca/Attractions-g188590-Activities-Amsterdam_North_Holland_Province.html",
+		"url_next": "https://www.tripadvisor.ca/Attractions-g188590-Activities-oa30-Amsterdam_North_Holland_Province.html"
+	},
+	{
+		"city": "Venice",
+		"country": "Italy",
+		"url": "https://www.tripadvisor.ca/Attractions-g187870-Activities-Venice_Veneto.html",
+		"url_next": "https://www.tripadvisor.ca/Attractions-g187870-Activities-oa30-Venice_Veneto.html"
+	},
+	{
+		"city": "London",
+		"country": "United Kingdom",
+		"url": "https://www.tripadvisor.ca/Attractions-g186338-Activities-London_England.html",
+		"url_next": "https://www.tripadvisor.ca/Attractions-g186338-Activities-oa30-London_England.html"
+	},
+	{
+		"city": "Guilin",
+		"country": "China",
+		"url": "https://www.tripadvisor.ca/Attractions-g298556-Activities-Guilin_Guangxi.html",
+		"url_next": "https://www.tripadvisor.ca/Attractions-g298556-Activities-oa30-Guilin_Guangxi.html"
+	},
+	{
+		"city": "Tokyo",
+		"country": "Japan",
+		"url": "https://www.tripadvisor.ca/Attractions-g298184-Activities-Tokyo_Tokyo_Prefecture_Kanto.html",
+		"url_next": "https://www.tripadvisor.ca/Attractions-g298184-Activities-oa30-Tokyo_Tokyo_Prefecture_Kanto.html"
+	},
+	{
+		"city": "Mexico City",
+		"country": "Mexico",
+		"url": "https://www.tripadvisor.ca/Attractions-g150800-Activities-Mexico_City_Central_Mexico_and_Gulf_Coast.html",
+		"url_next": "https://www.tripadvisor.ca/Attractions-g150800-Activities-oa30-Mexico_City_Central_Mexico_and_Gulf_Coast.html"
+	},
+	{
+		"city": "Shanghai",
+		"country": "China",
+		"url": "https://www.tripadvisor.ca/Attractions-g308272-Activities-Shanghai.html",
+		"url_next": "https://www.tripadvisor.ca/Attractions-g308272-Activities-oa30-Shanghai.html"
+	},
+	{
+		"city": "Bangkok",
+		"country": "Thailand",
+		"url": "https://www.tripadvisor.ca/Attractions-g293916-Activities-Bangkok.html",
+		"url_next": "https://www.tripadvisor.ca/Attractions-g293916-Activities-oa30-Bangkok.html"
+	},
+	{
+		"city": "Santorini",
+		"country": "Greece",
+		"url": "https://www.tripadvisor.ca/Attractions-g189433-Activities-Santorini_Cyclades_South_Aegean.html",
+		"url_next": "https://www.tripadvisor.ca/Attractions-g189433-Activities-oa30-Santorini_Cyclades_South_Aegean.html"
+	},
+	{
+		"city": "Rio de Janeiro",
+		"country": "Brazil",
+		"url": "https://www.tripadvisor.ca/Attractions-g303506-Activities-Rio_de_Janeiro_State_of_Rio_de_Janeiro.html",
+		"url_next": "https://www.tripadvisor.ca/Attractions-g303506-Activities-oa30-Rio_de_Janeiro_State_of_Rio_de_Janeiro.html"
+	},
+	{
+		"city": "Istanbul",
+		"country": "Turkey",
+		"url": "https://www.tripadvisor.ca/Attractions-g293974-Activities-Istanbul.html",
+		"url_next": "https://www.tripadvisor.ca/Attractions-g293974-Activities-oa30-Istanbul.html"
+	},
+	{
+		"city": "Colombo",
+		"country": "Sri Lanka",
+		"url": "https://www.tripadvisor.ca/Attractions-g293962-Activities-Colombo_Western_Province.html",
+		"url_next": "https://www.tripadvisor.ca/Attractions-g293962-Activities-oa30-Colombo_Western_Province.html"
+	},
+	{
+		"city": "Cape Town",
+		"country": "South Africa",
+		"url": "https://www.tripadvisor.ca/Attractions-g1722390-Activities-Cape_Town_Western_Cape.html",
+		"url_next": "https://www.tripadvisor.ca/Attractions-g1722390-Activities-oa30-Cape_Town_Western_Cape.html"
+	},
+	{
+		"city": "New Delhi",
+		"country": "India",
+		"url": "https://www.tripadvisor.ca/Attractions-g304551-Activities-New_Delhi_National_Capital_Territory_of_Delhi.html",
+		"url_next": "https://www.tripadvisor.ca/Attractions-g304551-Activities-oa30-New_Delhi_National_Capital_Territory_of_Delhi.html"
+	},
+	{
+		"city": "Prague",
+		"country": "Czech Republic",
+		"url": "https://www.tripadvisor.ca/Attractions-g274707-Activities-Prague_Bohemia.html",
+		"url_next": "https://www.tripadvisor.ca/Attractions-g274707-Activities-oa30-Prague_Bohemia.html"
 	}
 ]

@@ -89,6 +89,9 @@
     <AndroidResource Include="Resources\drawable\Plus.png" />
     <AndroidResource Include="Resources\drawable\Checkmark.png" />
     <AndroidResource Include="Resources\drawable\LogoWordsCentred.png" />
+    <AndroidResource Include="Resources\drawable\search.png" />
+    <AndroidResource Include="Resources\drawable\planning.png" />
+    <AndroidResource Include="Resources\drawable\trip.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

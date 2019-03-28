@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "339729551470",
+    "firebase_url": "https://eventour.firebaseio.com",
+    "project_id": "eventour",
+    "storage_bucket": "eventour.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:339729551470:android:3284d651fa6f246c",
+        "android_client_info": {
+          "package_name": "com.xamarin.Eventour"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "339729551470-qjbcbnvkbsf0a24rf8abkl8k1hae1ihr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQWdXPbebzwH4E3AAgqAwH3do-7PO6BfA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -2,8 +2,11 @@ import scrapy
 #from search import getCityUrl
 from description import getAttractionDescription
 from scrapy.crawler import CrawlerProcess
+from twisted.internet import reactor, defer
+from scrapy.crawler import CrawlerRunner
+from scrapy.utils.log import configure_logging
 from items import AttractionItem
-import json
+import json, sys, os
 from termcolor import colored
 
 class TripAdvisorSpider(scrapy.Spider):
@@ -125,6 +128,30 @@ process.start()
 '''
 
 '''
-process.crawl(TripAdvisorSpider, city = "New York City", country = "USA")
+process = CrawlerProcess({
+    'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)',
+    'ITEM_PIPELINES' : {'jsonpipeline.JsonPipeline':100}
+    })  
+process.crawl(TripAdvisorSpider, city = "New York City", country = "USA", url = "https://www.tripadvisor.ca/Attractions-g60763-Activities-New_York_City_New_York.html", url_next = "https://www.tripadvisor.ca/Attractions-g60763-Activities-oa30-New_York_City_New_York.html")
 process.start() 
 '''
+configure_logging()
+runner = CrawlerRunner({
+    'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)',
+    #'ITEM_PIPELINES' : {'jsonpipeline.JsonPipeline':100}
+    'ITEM_PIPELINES' : {'pipeline.ItemPipeline':100}
+    })
+
+@defer.inlineCallbacks
+def crawl():
+    print(os.path.abspath('cities.json'))
+    print(os.getcwd())
+    with open('/home/alien/crawler/cities.json') as f:
+        cities = json.load(f)
+    for city in cities:
+        yield runner.crawl(TripAdvisorSpider,city = city['city'], country = city['country'], url = city['url'], url_next = city['url_next'])
+    reactor.stop()
+
+crawl()
+reactor.run() # the script will block here until the last crawl call is finished
+
