@@ -35,8 +35,13 @@
         <ColumnDefinition Width="5*" />
         <ColumnDefinition Width="5*" />
       </Grid.ColumnDefinitions>
-      <Entry x:Name="startDate" Text="01/02/2019"/>
-      <Entry x:Name="endDate" Text="03/02/2019" Grid.Column="1"/>
+          <!-- <Entry x:Name="startDate" Text="01/02/2019"/>
+          <Entry x:Name="endDate" Text="03/02/2019" Grid.Column="1"/> -->
+          <DatePicker x:Name="startDate"
+                        Format="dd/MM/yyyy"/>
+          <DatePicker x:Name="endDate"
+                        Format="dd/MM/yyyy"
+                        Grid.Column="1"/>
       </Grid>
       
       <Grid Padding="20, 20, 20, 0">
@@ -51,7 +56,6 @@
         Margin="20,10,20,0"
         />
       </Grid>
-      <Label x:Name="test" Text="" TextColor="#3ECCE5" FontAttributes="Bold"/>
     <ScrollView></ScrollView>
     <BoxView VerticalOptions="FillAndExpand"
         HorizontalOptions="FillAndExpand"/>

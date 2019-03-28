@@ -70,9 +70,15 @@ namespace Eventour
                 dateGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
                 dateGrids.Add(dateGrid);
 
-                // Label
+                // For label
                 string startDate = AllTripsDataDisplayed[k].StartDate;
                 string endDate = AllTripsDataDisplayed[k].EndDate;
+
+                /* DateTime startDateObj = DateTime.ParseExact(startDate, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                DateTime endDateObj = DateTime.ParseExact(endDate, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+
+                var datesLabel = new Label { Text = (startDateObj).ToString("MM/dd/yyyy") + " - " + (endDateObj).ToString("MM/dd/yyyy"), TextColor = Color.FromHex("#3ECCE5"), FontAttributes = FontAttributes.Bold }; */
+
                 var datesLabel = new Label { Text = startDate + " - " + endDate, TextColor = Color.FromHex("#3ECCE5"), FontAttributes = FontAttributes.Bold };
                 // Add to grid
                 dateGrid.Children.Add(datesLabel, 0, 0);
