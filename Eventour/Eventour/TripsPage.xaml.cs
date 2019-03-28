@@ -14,6 +14,8 @@ namespace Eventour
         // Data for all trips
         public static List<SearchResults.DataDisplay> AllTripsDataDisplayed = new List<SearchResults.DataDisplay>();
 
+        public static int tripIndex;
+
         // // Data for one trip
         // SearchResults.DataDisplay tripsPageData;
 
@@ -104,9 +106,12 @@ namespace Eventour
                     VerticalTextAlignment = TextAlignment.Center 
                 };
 
-                ClickGestureRecognizer click = new ClickGestureRecognizer();
-                click.Clicked += OnPlanClicked;
-                destLabel.GestureRecognizers.Add(click);
+                TapGestureRecognizer tap = new TapGestureRecognizer();
+                tap.Tapped += (sender, args) => {
+                    tripIndex = k;
+                    OnSavedTripClicked(sender, args);
+                }; 
+                destLabel.GestureRecognizers.Add(tap);
 
                 // Add to grid
                 destGrid.Children.Add(destBoxview);
@@ -116,6 +121,20 @@ namespace Eventour
                 TripsPageStack.Children.Add(dateGrid);
                 TripsPageStack.Children.Add(destGrid);
             }
+        }
+
+        async void OnSavedTripClicked(object sender, EventArgs e)
+        {
+            SearchResults.DataDisplay data = AllTripsDataDisplayed[tripIndex];
+            if (SearchResults.displayedData != null)
+            {
+                var searchResultsPage = new SearchResults(data.Dest, data.StartDate, data.EndDate, data.Attractions, data.Ratings, data.ReviewCounts, data.ImageURLs, data.Durations, data.Descriptions, data.Addresses);
+
+                // Disable back button on next page
+                NavigationPage.SetHasBackButton(searchResultsPage, false);
+                await Navigation.PushAsync(searchResultsPage);
+            }
+
         }
 
         // When logo button on top menu bar is clicked
