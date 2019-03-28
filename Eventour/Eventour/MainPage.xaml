@@ -4,13 +4,15 @@
                    x:Class="Eventour.MainPage">
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
-            <On Platform="iOS" Value="0, 40, 0, 20" />
+            <On Platform="iOS" Value="0, 40, 0, 0" />
             <On Platform="Android, UWP" Value="20" />
         </OnPlatform>
     </ContentPage.Padding>
     <ScrollView>
-    <StackLayout>
-      <Image Source="LogoWordsCentred.png" HorizontalOptions="Center" Width="20" Height="20"/>
+    <StackLayout Spacing="0">
+      <Grid HeightRequest="100">
+      <Image Source="LogoWordsCentred.png" HorizontalOptions="Center"/>
+      </Grid>
       <Grid Padding="20, 20, 20, 0">
       </Grid>
       <Grid Padding="20, 0, 20, 0">
@@ -37,7 +39,7 @@
       <Entry x:Name="endDate" Text="03/02/2019" Grid.Column="1"/>
       </Grid>
       
-      <Grid Padding="20, 20, 20, 0" BackgroundColor="Fuchsia">
+      <Grid Padding="20, 20, 20, 0">
       <Button 
         x:Name="suggestTripButton" 
         Text="Suggest A Trip"
@@ -50,7 +52,34 @@
         />
       </Grid>
       <Label x:Name="test" Text="" TextColor="#3ECCE5" FontAttributes="Bold"/>
-    <ScrollView></ScrollView><ScrollView></ScrollView><ScrollView></ScrollView>
+    <ScrollView></ScrollView>
+    <BoxView VerticalOptions="FillAndExpand"
+        HorizontalOptions="FillAndExpand"/>
+      <Grid Padding="0, 0, 0, 0" BackgroundColor="#72D5E6" Opacity="0.8" ColumnSpacing="0" RowSpacing="0" HeightRequest="100">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+         <RowDefinition Height="*"/>
+         <RowDefinition Height="40"/>
+      </Grid.RowDefinitions>
+        <BoxView BackgroundColor="#37D5DB" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="0" Grid.Column="0"/>
+        <ImageButton Source="search.png" HorizontalOptions="Center" 
+                VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="0"/>
+        <BoxView BackgroundColor="#37D5DB" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="0"/>
+        <Label Text="Search" TextColor="White" FontSize="16" HorizontalOptions="Center"
+                VerticalOptions="StartAndExpand" Grid.Row="1" Grid.Column="0"/>
+        <ImageButton Source="planning.png" HorizontalOptions="Center"
+                    VerticalOptions="CenterAndExpand" Grid.Column="1"/>
+        <Label Text="Plan" TextColor="White" FontSize="16" HorizontalOptions="Center"
+                VerticalOptions="StartAndExpand" Grid.Row="1" Grid.Column="1"/>
+        <ImageButton Source="trip.png" HorizontalOptions="Center"
+                    VerticalOptions="CenterAndExpand" Grid.Column="2"/>
+        <Label Text="My Trips" TextColor="White" FontSize="16" HorizontalOptions="Center"
+                VerticalOptions="StartAndExpand" Grid.Row="1" Grid.Column="2"/>
+      </Grid>
     </StackLayout>
     </ScrollView>
 </ContentPage>
