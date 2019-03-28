@@ -62,5 +62,10 @@ namespace Eventour
                 await DisplayAlert("Server Down for Maintenance", "Please try again at a later time.", "OK");
             }
         }
+
+        async void OnAuthCompleted(object sender, EventArgs e)
+        {
+            await Navigation.PopAsync();
+        }
     }
 }

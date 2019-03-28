@@ -12,21 +12,22 @@ namespace Eventour
         // ===============================================
 
         // Data for all trips
-        List<SearchResults.DataDisplay> AllTripsDataDisplayed = new List<SearchResults.DataDisplay>();
+        public static List<SearchResults.DataDisplay> AllTripsDataDisplayed = new List<SearchResults.DataDisplay>();
 
-        // Data for one trip
-        SearchResults.DataDisplay tripsPageData;
+        // // Data for one trip
+        // SearchResults.DataDisplay tripsPageData;
 
         // List of grids to display dates of trips
         List<Grid> dateGrids = new List<Grid>();
         // List of grids to display locations of trips
         List<Grid> destGrids = new List<Grid>();
 
-        public TripsPage(string dest, string startDate, string endDate, List<List<string>> attractions, List<List<string>> ratings, List<List<string>> reviewCounts, List<List<string>> imageURLs, List<List<string>> durations, List<List<string>> descriptions, List<List<string>> addresses)
+        public TripsPage()
+        // public TripsPage(string dest, string startDate, string endDate, List<List<string>> attractions, List<List<string>> ratings, List<List<string>> reviewCounts, List<List<string>> imageURLs, List<List<string>> durations, List<List<string>> descriptions, List<List<string>> addresses)
         {
             InitializeComponent();
 
-            // Store database query results in global variables
+            /* // Store database query results in global variables
             tripsPageData = new SearchResults.DataDisplay
             {
                 Dest = dest,
@@ -42,7 +43,23 @@ namespace Eventour
             };
 
             // Add data for trip to object that stores data for all trips
-            AllTripsDataDisplayed.Add(tripsPageData);
+            AllTripsDataDisplayed.Add(tripsPageData); */
+
+            // If no saved trips
+            if (AllTripsDataDisplayed.Count == 0)
+            {
+                // Create 1x1 grid
+                var textGrid = new Grid { Margin = new Thickness(30, 40, 30, 0) };
+                textGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+                textGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+
+                // Label
+                var noTripsLabel = new Label { Text = "No trips to display.", TextColor = Color.Black };
+                // Add to grid
+                textGrid.Children.Add(noTripsLabel, 0, 0);
+                // Add to stack layout
+                TripsPageStack.Children.Add(textGrid);
+            }
 
             // For every saved trip
             for (int k = 0; k < AllTripsDataDisplayed.Count; k++)
@@ -54,6 +71,8 @@ namespace Eventour
                 dateGrids.Add(dateGrid);
 
                 // Label
+                string startDate = AllTripsDataDisplayed[k].StartDate;
+                string endDate = AllTripsDataDisplayed[k].EndDate;
                 var datesLabel = new Label { Text = startDate + " - " + endDate, TextColor = Color.FromHex("#3ECCE5"), FontAttributes = FontAttributes.Bold };
                 // Add to grid
                 dateGrid.Children.Add(datesLabel, 0, 0);
@@ -67,6 +86,7 @@ namespace Eventour
                 // Boxview
                 var destBoxview = new BoxView { CornerRadius = 20, HorizontalOptions = LayoutOptions.Fill, BackgroundColor = Color.FromHex("#72D5E6"), Opacity = 0.2 };
                 // Label - to be displayed on boxview
+                string dest = AllTripsDataDisplayed[k].Dest;
                 var destLabel = new Label
                 { 
                     Text = dest, 

@@ -345,8 +345,13 @@ namespace Eventour
             // Remove any attractions user chose to remove before navigating to next page
             RemoveAttractions();
 
+            // Data for current trip
             DataDisplay data = displayedData;
-            var tripsPage = new TripsPage(data.Dest, data.StartDate, data.EndDate, data.Attractions, data.Ratings, data.ReviewCounts, data.ImageURLs, data.Durations, data.Descriptions, data.Addresses);
+
+            // Add data for trip to object that stores data for all trips
+            TripsPage.AllTripsDataDisplayed.Add(data);
+
+            var tripsPage = new TripsPage();
 
             // Disable back button on next page
             NavigationPage.SetHasBackButton(tripsPage, false);

@@ -25,7 +25,9 @@ namespace Eventour
             Attractions = new List<string>();
             Ratings = new List<string>(); */
 
-            MainPage = new NavigationPage(new MainPage());
+            // MainPage = new NavigationPage(new MainPage());
+            // MainPage = new OAuthNativeFlowPage();
+            MainPage = new NavigationPage(new OAuthNativeFlowPage());
         }
 
         protected override void OnStart()

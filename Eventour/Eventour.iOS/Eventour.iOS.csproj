@@ -30,6 +30,7 @@
     <MtouchDebug>true</MtouchDebug>
     <CodesignKey>iPhone Developer: jnatisa@gmail.com (QXWX62T7UF)</CodesignKey>
     <CodesignProvision>iOS Team Provisioning Profile: com.xamarin.Eventour</CodesignProvision>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
