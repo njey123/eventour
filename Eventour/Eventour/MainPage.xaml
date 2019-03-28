@@ -49,5 +49,8 @@
         Margin="20,10,20,0"
         />
       </Grid>
-    <ScrollView></ScrollView></StackLayout></ScrollView>
+      <Label x:Name="test" Text="" TextColor="#3ECCE5" FontAttributes="Bold"/>
+    <ScrollView></ScrollView><ScrollView></ScrollView><ScrollView></ScrollView>
+    </StackLayout>
+    </ScrollView>
 </ContentPage>

@@ -45,14 +45,22 @@ namespace Eventour
             // Send request to server and get response back
             IRestResponse response = client.Execute(request);
 
-            // Deserialize JSON response from server
-            DataDisplay data = Newtonsoft.Json.JsonConvert.DeserializeObject<DataDisplay>(response.Content);
+            // Go to search results page if HTTP request was successful
+            if (response.IsSuccessful == true)
+            {
+                // Deserialize JSON response from server
+                DataDisplay data = Newtonsoft.Json.JsonConvert.DeserializeObject<DataDisplay>(response.Content);
 
-            var searchResultsPage = new SearchResults(data.Dest, data.StartDate, data.EndDate, data.Attractions, data.Ratings, data.ReviewCounts, data.ImageURLs, data.Durations, data.Descriptions, data.Addresses);
+                var searchResultsPage = new SearchResults(data.Dest, data.StartDate, data.EndDate, data.Attractions, data.Ratings, data.ReviewCounts, data.ImageURLs, data.Durations, data.Descriptions, data.Addresses);
 
-            // Disable back button on next page
-            NavigationPage.SetHasBackButton(searchResultsPage, false);
-            await Navigation.PushAsync(searchResultsPage);
+                // Disable back button on next page
+                NavigationPage.SetHasBackButton(searchResultsPage, false);
+                await Navigation.PushAsync(searchResultsPage);
+            }
+            else
+            {
+                await DisplayAlert("Server Down for Maintenance", "Please try again at a later time.", "OK");
+            }
         }
     }
 }

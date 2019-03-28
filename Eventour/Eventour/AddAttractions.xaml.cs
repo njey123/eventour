@@ -120,7 +120,7 @@ namespace Eventour
                     currDayImgGrid.Add(imgGrid);
 
                     // Boxviews
-                    var currBoxview = new BoxView { CornerRadius = 10, HorizontalOptions = LayoutOptions.Fill, BackgroundColor = Color.FromHex("#72D5E6"), Opacity = 0.4 };
+                    var currBoxview = new BoxView { CornerRadius = 10, HorizontalOptions = LayoutOptions.Fill, BackgroundColor = Color.FromHex("#72D5E6"), Opacity = 0.2 };
 
                     // Image
                     string bindingContextAttractionImgBtn = String.Format("{0},{1}", i, j);

@@ -135,7 +135,7 @@ namespace Eventour
                     currDayImgGrid.Add(imgGrid);
 
                     // Boxviews
-                    var currBoxview = new BoxView { CornerRadius = 10, HorizontalOptions = LayoutOptions.Fill, BackgroundColor = Color.FromHex("#72D5E6"), Opacity = 0.4 };
+                    var currBoxview = new BoxView { CornerRadius = 10, HorizontalOptions = LayoutOptions.Fill, BackgroundColor = Color.FromHex("#72D5E6"), Opacity = 0.2 };
                     // Image
                     // string bindingContextAttractionImgBtn = String.Format("{0}~{1}", displayedData.Descriptions[i][j], displayedData.Addresses[i][j]);
                     string bindingContextAttractionImgBtn = String.Format("{0},{1}", i, j);
@@ -425,18 +425,26 @@ namespace Eventour
             // Send request to server and get response back
             IRestResponse response = client.Execute(request);
 
-            // Deserialize JSON response from server
-            DataDisplay data = Newtonsoft.Json.JsonConvert.DeserializeObject<DataDisplay>(response.Content);
+            // Go to add attractions page if HTTP request was successful
+            if (response.IsSuccessful == true)
+            {
+                // Deserialize JSON response from server
+                DataDisplay data = Newtonsoft.Json.JsonConvert.DeserializeObject<DataDisplay>(response.Content);
 
-            // Remove any attractions user chose to remove before navigating to next page
-            RemoveAttractions();
+                // Remove any attractions user chose to remove before navigating to next page
+                RemoveAttractions();
 
-            var addAttractionsPage = new AddAttractions(data.Dest, data.StartDate, (endDateObj).ToString("dd/MM/yyyy"), data.Attractions, data.Ratings, data.ReviewCounts, data.ImageURLs, data.Durations, data.Descriptions, data.Addresses);
-            addAttractionsPage.BindingContext = displayedData;
+                var addAttractionsPage = new AddAttractions(data.Dest, data.StartDate, (endDateObj).ToString("dd/MM/yyyy"), data.Attractions, data.Ratings, data.ReviewCounts, data.ImageURLs, data.Durations, data.Descriptions, data.Addresses);
+                addAttractionsPage.BindingContext = displayedData;
 
-            // Disable back button on page where user can add attractions
-            NavigationPage.SetHasBackButton(addAttractionsPage, false);
-            await Navigation.PushAsync(addAttractionsPage);
+                // Disable back button on page where user can add attractions
+                NavigationPage.SetHasBackButton(addAttractionsPage, false);
+                await Navigation.PushAsync(addAttractionsPage);
+            }
+            else
+            {
+                await DisplayAlert("Server Maintenance", "Please try again at a later time.", "OK");
+            }
         }
 
         async void OnSuggestButtonClicked(object sender, EventArgs e)
