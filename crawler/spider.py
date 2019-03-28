@@ -138,14 +138,15 @@ process.start()
 configure_logging()
 runner = CrawlerRunner({
     'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)',
-    #'ITEM_PIPELINES' : {'jsonpipeline.JsonPipeline':100}
-    'ITEM_PIPELINES' : {'pipeline.ItemPipeline':100}
+    #'ITEM_PIPELINES' : {'jsonpipeline.JsonPipeline':100},
+    'ITEM_PIPELINES' : {'pipeline.ItemPipeline':100},
+    'CLOSESPIDER_PAGECOUNT': 250,
     })
 
 @defer.inlineCallbacks
 def crawl():
-    print(os.path.abspath('cities.json'))
-    print(os.getcwd())
+    #print(os.path.abspath('cities.json'))
+    #print(os.getcwd())
     with open('/home/alien/crawler/cities.json') as f:
         cities = json.load(f)
     for city in cities:

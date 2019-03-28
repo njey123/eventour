@@ -29,7 +29,7 @@ namespace Eventour
             descriptionGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
 
             // If no description is availavble
-            if (String.Equals(description.Trim(), ""))
+            if (String.IsNullOrEmpty(description))
             {
                 description = "No description available.";
             }
@@ -51,7 +51,7 @@ namespace Eventour
             var addressHeading = new Label { Text = "Address: ", TextColor = Color.Black, FontAttributes = FontAttributes.Bold };
 
             // If no address is availavble
-            if (String.Equals(address.Trim(), ""))
+            if (String.IsNullOrEmpty(address))
             {
                 description = "No address available.";
             }

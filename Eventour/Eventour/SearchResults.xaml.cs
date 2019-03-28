@@ -456,5 +456,24 @@ namespace Eventour
         {
             await Navigation.PopAsync();
         }
+
+        async void OnSearchClicked(object sender, EventArgs e)
+        {
+            var mainPage = new MainPage();
+
+            // Disable back button on next page
+            NavigationPage.SetHasBackButton(mainPage, false);
+            await Navigation.PushAsync(mainPage);
+        }
+
+        async void OnTripClicked(object sender, EventArgs e)
+        {
+            var tripsPage = new TripsPage();
+
+            // Disable back button on next page
+            NavigationPage.SetHasBackButton(tripsPage, false);
+            await Navigation.PushAsync(tripsPage);
+        }
+
     }
 }

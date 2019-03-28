@@ -139,14 +139,21 @@ namespace Eventour
                 // Go to search results page if HTTP request was successful
                 if (response.IsSuccessful == true)
                 {
-                    // Deserialize JSON response from server
-                    DataDisplay data = Newtonsoft.Json.JsonConvert.DeserializeObject<DataDisplay>(response.Content);
+                    if(destination.Text.Length == 0)
+                    {
+                       await DisplayAlert("Required Entry", "Please enter a destination", "OK");
+                    }
+                    else
+                    {
+                        // Deserialize JSON response from server
+                        DataDisplay data = Newtonsoft.Json.JsonConvert.DeserializeObject<DataDisplay>(response.Content);
 
-                    var searchResultsPage = new SearchResults(data.Dest, data.StartDate, data.EndDate, data.Attractions, data.Ratings, data.ReviewCounts, data.ImageURLs, data.Durations, data.Descriptions, data.Addresses);
+                        var searchResultsPage = new SearchResults(data.Dest, data.StartDate, data.EndDate, data.Attractions, data.Ratings, data.ReviewCounts, data.ImageURLs, data.Durations, data.Descriptions, data.Addresses);
 
-                    // Disable back button on next page
-                    NavigationPage.SetHasBackButton(searchResultsPage, false);
-                    await Navigation.PushAsync(searchResultsPage);
+                        // Disable back button on next page
+                        NavigationPage.SetHasBackButton(searchResultsPage, false);
+                        await Navigation.PushAsync(searchResultsPage);
+                    }
                 }
                 else
                 {
@@ -160,14 +167,34 @@ namespace Eventour
             }
         }
 
-        void OnPlanClicked(object sender, EventArgs e)
+        async void OnPlanClicked(object sender, EventArgs e)
         {
+            SearchResults.DataDisplay data = SearchResults.displayedData;
+            if (SearchResults.displayedData != null)
+            {
+                var searchResultsPage = new SearchResults(data.Dest, data.StartDate, data.EndDate, data.Attractions, data.Ratings, data.ReviewCounts, data.ImageURLs, data.Durations, data.Descriptions, data.Addresses);
 
+                // Disable back button on next page
+                NavigationPage.SetHasBackButton(searchResultsPage, false);
+                await Navigation.PushAsync(searchResultsPage);
+            }
+            // Do nothing - no search results yet
+
+            /* SearchResults.DataDisplay data = SearchResults.displayedData;
+            var searchResultsPage = new SearchResults(data.Dest, data.StartDate, data.EndDate, data.Attractions, data.Ratings, data.ReviewCounts, data.ImageURLs, data.Durations, data.Descriptions, data.Addresses);
+
+            // Disable back button on next page
+            NavigationPage.SetHasBackButton(searchResultsPage, false);
+            await Navigation.PushAsync(searchResultsPage); */
         }
 
-        void OnTripClicked(object sender, EventArgs e)
+        async void OnTripClicked(object sender, EventArgs e)
         {
+            var tripsPage = new TripsPage();
 
+            // Disable back button on next page
+            NavigationPage.SetHasBackButton(tripsPage, false);
+            await Navigation.PushAsync(tripsPage);
         }
 
         async void OnAuthCompleted(object sender, EventArgs e)

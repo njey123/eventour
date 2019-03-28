@@ -91,6 +91,7 @@ namespace Eventour
 
                 // Boxview
                 var destBoxview = new BoxView { CornerRadius = 20, HorizontalOptions = LayoutOptions.Fill, BackgroundColor = Color.FromHex("#72D5E6"), Opacity = 0.2 };
+
                 // Label - to be displayed on boxview
                 string dest = AllTripsDataDisplayed[k].Dest;
                 var destLabel = new Label
@@ -102,6 +103,10 @@ namespace Eventour
                     HorizontalTextAlignment = TextAlignment.Center, 
                     VerticalTextAlignment = TextAlignment.Center 
                 };
+
+                ClickGestureRecognizer click = new ClickGestureRecognizer();
+                click.Clicked += OnPlanClicked;
+                destLabel.GestureRecognizers.Add(click);
 
                 // Add to grid
                 destGrid.Children.Add(destBoxview);
@@ -127,5 +132,28 @@ namespace Eventour
         {
             await Navigation.PopAsync();
         }
+
+        async void OnPlanClicked(object sender, EventArgs e)
+        {
+            SearchResults.DataDisplay data = SearchResults.displayedData;
+            if(SearchResults.displayedData != null)
+            {
+                var searchResultsPage = new SearchResults(data.Dest, data.StartDate, data.EndDate, data.Attractions, data.Ratings, data.ReviewCounts, data.ImageURLs, data.Durations, data.Descriptions, data.Addresses);
+
+                // Disable back button on next page
+                NavigationPage.SetHasBackButton(searchResultsPage, false);
+                await Navigation.PushAsync(searchResultsPage);
+            }
+
+        }
+        async void OnSearchClicked(object sender, EventArgs e)
+        {
+            var mainPage = new MainPage();
+
+            // Disable back button on next page
+            NavigationPage.SetHasBackButton(mainPage, false);
+            await Navigation.PushAsync(mainPage);
+        }
+
     }
 }
