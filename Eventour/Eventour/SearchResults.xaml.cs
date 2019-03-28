@@ -332,6 +332,7 @@ namespace Eventour
         // When logo button on top menu bar is clicked
         async void OnLogoBtnClicked(object sender, EventArgs e)
         {
+            RemoveAttractions();
             var mainPage = new MainPage();
 
             // Disable back button on next page
@@ -459,6 +460,7 @@ namespace Eventour
 
         async void OnSearchClicked(object sender, EventArgs e)
         {
+            RemoveAttractions();
             var mainPage = new MainPage();
 
             // Disable back button on next page
@@ -468,6 +470,7 @@ namespace Eventour
 
         async void OnTripClicked(object sender, EventArgs e)
         {
+            RemoveAttractions();
             var tripsPage = new TripsPage();
 
             // Disable back button on next page
