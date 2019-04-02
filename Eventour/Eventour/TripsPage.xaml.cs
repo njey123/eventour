@@ -14,15 +14,19 @@ namespace Eventour
         // Data for all trips
         public static List<SearchResults.DataDisplay> AllTripsDataDisplayed = new List<SearchResults.DataDisplay>();
 
-        public static int tripIndex;
+        // public static int tripIndex;
 
         // // Data for one trip
         // SearchResults.DataDisplay tripsPageData;
 
         // List of grids to display dates of trips
-        List<Grid> dateGrids = new List<Grid>();
+        List<Grid> dateGrids;
         // List of grids to display locations of trips
-        List<Grid> destGrids = new List<Grid>();
+        List<Grid> destGrids;
+        // List of destination labels
+        public static List<Label> destLabels;
+        // List of taps for destination labels
+        public static List<TapGestureRecognizer> tapsList;
 
         public TripsPage()
         // public TripsPage(string dest, string startDate, string endDate, List<List<string>> attractions, List<List<string>> ratings, List<List<string>> reviewCounts, List<List<string>> imageURLs, List<List<string>> durations, List<List<string>> descriptions, List<List<string>> addresses)
@@ -62,6 +66,21 @@ namespace Eventour
                 // Add to stack layout
                 TripsPageStack.Children.Add(textGrid);
             }
+
+            // List of grids to display dates of trips
+            dateGrids = new List<Grid>();
+            // List of grids to display locations of trips
+            destGrids = new List<Grid>();
+            // List of destination labels
+            destLabels = new List<Label>();
+            // List of taps for destination labels
+            tapsList = new List<TapGestureRecognizer>();
+
+            /* // For every saved trip
+            for (int k = 0; k < AllTripsDataDisplayed.Count; k++)
+            { 
+                tapsList.Add(new TapGestureRecognizer());
+            } */
 
             // For every saved trip
             for (int k = 0; k < AllTripsDataDisplayed.Count; k++)
@@ -103,15 +122,18 @@ namespace Eventour
                     FontAttributes = FontAttributes.Bold, 
                     FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)), 
                     HorizontalTextAlignment = TextAlignment.Center, 
-                    VerticalTextAlignment = TextAlignment.Center 
+                    VerticalTextAlignment = TextAlignment.Center,
+                    BindingContext = k.ToString()
                 };
+                destLabels.Add(destLabel);
 
                 TapGestureRecognizer tap = new TapGestureRecognizer();
                 tap.Tapped += (sender, args) => {
-                    tripIndex = k;
+                    // tripIndex = k;
                     OnSavedTripClicked(sender, args);
-                }; 
-                destLabel.GestureRecognizers.Add(tap);
+                };
+                tapsList.Add(tap);
+                destLabels[k].GestureRecognizers.Add(tapsList[k]);
 
                 // Add to grid
                 destGrid.Children.Add(destBoxview);
@@ -125,6 +147,9 @@ namespace Eventour
 
         async void OnSavedTripClicked(object sender, EventArgs e)
         {
+            var destLabel = sender as Label;
+            string tripIndexStr = destLabel.BindingContext as string;
+            int tripIndex = Int32.Parse(tripIndexStr);
             SearchResults.DataDisplay data = AllTripsDataDisplayed[tripIndex];
             if (SearchResults.displayedData != null)
             {
