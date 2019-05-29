@@ -2,19 +2,31 @@
 A trip planning app
 
 ### Sign in: 
-![alt text](/images/screenshots/2.png "Sign in")
+<kbd>
+    <img src="/images/screenshots/2019-03-29/2.PNG" alt="Sign in screenshot" width="300"/>
+</kbd>
 
 ### Search:
-![alt text](/images/screenshots/4.png "Search")
+<kbd>
+    <img src="/images/screenshots/2019-03-29/4.PNG" alt="Search screenshot" width="300"/>
+</kbd>
 
 ### Results: 
-![alt text](/images/screenshots/6.png "Results")
+<kbd>
+    <img src="/images/screenshots/2019-03-29/6.PNG" alt="Results screenshot" width="300"/>
+</kbd>
 
 ### Details: 
-![alt text](/images/screenshots/12.png "Details about Nyhavn")
+<kbd>
+    <img src="/images/screenshots/2019-03-29/12.PNG" alt="Details screenshot" width="300"/>
+</kbd>
 
 ### Customize:
-![alt text](/images/screenshots/11.png "Add activities")
+<kbd>
+    <img src="/images/screenshots/2019-03-29/11.PNG" alt="Customize screenshot" width="300"/>
+</kbd>
 
 ### Save:
-![alt text](/images/screenshots/16.png "My Trips")
+<kbd>
+    <img src="/images/screenshots/2019-03-29/16.PNG" alt="Save screenshot" width="300"/>
+</kbd>    
